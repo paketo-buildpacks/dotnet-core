@@ -1,0 +1,109 @@
+api = "0.2"
+
+[buildpack]
+  id = "paketo-buildpacks/dotnet-core"
+  name = ".NET Core Buildpack"
+  version = "{{.Version}}"
+
+[metadata]
+  dependency_deprecation_dates = []
+  include_files = ["buildpack.toml"]
+
+  [[metadata.dependencies]]
+    id = "paketo-buildpacks/dotnet-core-conf"
+    sha256 = "fb05df5802aacbd28185e972155e253badeca050bdb9696ddcc80cc4870a9894"
+    source = "https://github.com/cloudfoundry/dotnet-core-conf-cnb/archive/v0.0.122.tar.gz"
+    source_sha256 = "e0f658f8b752258eb133a6fb23575231d2d4f16a08f27974a249e7e1d2482fbf"
+    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
+    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.dotnet-core-conf/org.cloudfoundry.dotnet-core-conf_0.0.122_linux_noarch_any-stack_fb05df58.tgz"
+    version = "0.0.122"
+
+  [[metadata.dependencies]]
+    id = "paketo-buildpacks/dotnet-core-runtime"
+    sha256 = "f0ce3dae2f228e12f24143c57b298c916ead39a2c2277665d2999b5db604d2cf"
+    source = "https://github.com/cloudfoundry/dotnet-core-runtime-cnb/archive/v0.0.135.tar.gz"
+    source_sha256 = "f919b2e70234b1ecd8d3de0202b8495a578a3108f69fa6a5241a5c01d4ef34ef"
+    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
+    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.dotnet-core-runtime/org.cloudfoundry.dotnet-core-runtime_0.0.135_linux_noarch_any-stack_f0ce3dae.tgz"
+    version = "0.0.135"
+
+  [[metadata.dependencies]]
+    id = "paketo-buildpacks/dotnet-core-sdk"
+    sha256 = "0d94864a06c866ae76f3d149c86d51ce64b04ae25a577c6a8d2b6ff8c0a32da5"
+    source = "https://github.com/cloudfoundry/dotnet-core-sdk-cnb/archive/v0.0.133.tar.gz"
+    source_sha256 = "06b06e4ea64ecc96320cd7e2b94903e802771aa2a79a71913868c701e2e05ca0"
+    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
+    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.dotnet-core-sdk/org.cloudfoundry.dotnet-core-sdk_0.0.133_linux_noarch_any-stack_0d94864a.tgz"
+    version = "0.0.133"
+
+  [[metadata.dependencies]]
+    id = "paketo-buildpacks/icu"
+    sha256 = "bca087ba720f4d1493a92fbd8d2a36f19cae91adf171872ef37531b174667de2"
+    source = "https://github.com/cloudfoundry/icu-cnb/archive/v0.0.52.tar.gz"
+    source_sha256 = "923941d463c6a201277a661a2ca944f9e7f4793cbda50c2de2773c60a0152161"
+    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
+    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.icu/org.cloudfoundry.icu_0.0.52_linux_noarch_any-stack_bca087ba.tgz"
+    version = "0.0.52"
+
+  [[metadata.dependencies]]
+    id = "paketo-buildpacks/node-engine"
+    sha256 = "ae92b009fb167ed56cf19e5050480606ca7e17dda977e73225f4d1e43d03956e"
+    source = "https://github.com/cloudfoundry/node-engine-cnb/archive/v0.0.178.tar.gz"
+    source_sha256 = "9b6f8dd2f03d5ee704605bbca4503d973d08a7ed236712c66de5c7a71867af46"
+    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
+    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.node-engine/org.cloudfoundry.node-engine_0.0.178_linux_noarch_any-stack_ae92b009.tgz"
+    version = "0.0.178"
+
+  [[metadata.dependencies]]
+    id = "paketo-buildpacks/dotnet-core-aspnet"
+    sha256 = "006a29866fe71693fd34a6b148725412fe5b40d3b4b45ab91647a824f111019b"
+    source = "https://github.com/cloudfoundry/dotnet-core-aspnet-cnb/archive/v0.0.128.tar.gz"
+    source_sha256 = "3053cea12023272263f713e731000e07c5acc3b47b12b3207c2b52b09ae991f9"
+    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
+    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.dotnet-core-aspnet/org.cloudfoundry.dotnet-core-aspnet_0.0.128_linux_noarch_any-stack_006a2986.tgz"
+    version = "0.0.128"
+
+  [[metadata.dependencies]]
+    id = "paketo-buildpacks/dotnet-core-build"
+    sha256 = "2ef58689098300fdbf56e10052b5c8df942b0e1298187ffea03f7275939ebe6d"
+    source = "https://github.com/cloudfoundry/dotnet-core-build-cnb/archive/v0.0.70.tar.gz"
+    source_sha256 = "c79670babae5594b2eff8cbe7ced4c62a849a07ea8b5997399760a990dbe24b2"
+    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
+    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.dotnet-core-build/org.cloudfoundry.dotnet-core-build_0.0.70_linux_noarch_any-stack_2ef58689.tgz"
+    version = "0.0.70"
+
+[[order]]
+
+  [[order.group]]
+    id = "paketo-buildpacks/node-engine"
+    version = "0.0.178"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/icu"
+    version = "0.0.52"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-core-runtime"
+    version = "0.0.135"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-core-aspnet"
+    version = "0.0.128"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-core-sdk"
+    version = "0.0.133"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-core-build"
+    version = "0.0.70"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-core-conf"
+    version = "0.0.122"
