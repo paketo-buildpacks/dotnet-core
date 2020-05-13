@@ -4,6 +4,7 @@ api = "0.2"
   id = "paketo-buildpacks/dotnet-core"
   name = ".NET Core Buildpack"
   version = "{{.Version}}"
+  homepage = "https://github.com/paketo-buildpacks/dotnet-core"
 
 [metadata]
   dependency_deprecation_dates = []
