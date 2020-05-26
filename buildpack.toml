@@ -1,13 +1,12 @@
 api = "0.2"
 
 [buildpack]
+  homepage = "https://github.com/paketo-buildpacks/dotnet-core"
   id = "paketo-buildpacks/dotnet-core"
   name = ".NET Core Buildpack"
   version = "{{.Version}}"
-  homepage = "https://github.com/paketo-buildpacks/dotnet-core"
 
 [metadata]
-  dependency_deprecation_dates = []
   include_files = ["buildpack.toml"]
 
   [[metadata.dependencies]]
@@ -57,12 +56,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
-    sha256 = "006a29866fe71693fd34a6b148725412fe5b40d3b4b45ab91647a824f111019b"
-    source = "https://github.com/cloudfoundry/dotnet-core-aspnet-cnb/archive/v0.0.128.tar.gz"
-    source_sha256 = "3053cea12023272263f713e731000e07c5acc3b47b12b3207c2b52b09ae991f9"
-    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.dotnet-core-aspnet/org.cloudfoundry.dotnet-core-aspnet_0.0.128_linux_noarch_any-stack_006a2986.tgz"
-    version = "0.0.128"
+    sha256 = "0340e241accdf66c097222396ad3b5d543bc1289efe4e509b7d2e340a756efbb"
+    source = "https://github.com/paketo-buildpacks/dotnet-core-aspnet/archive/v0.0.154.tar.gz"
+    source_sha256 = "7bc81be5358a256db406153b43aa618c485c8bd783bd70285ba38ffba821fcd9"
+    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic"]
+    uri = "https://github.com/paketo-buildpacks/dotnet-core-aspnet/releases/download/v0.0.154/dotnet-core-aspnet-0.0.154.tgz"
+    version = "0.0.154"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/dotnet-core-build"
@@ -92,7 +91,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
-    version = "0.0.128"
+    version = "0.0.154"
     optional = true
 
   [[order.group]]
