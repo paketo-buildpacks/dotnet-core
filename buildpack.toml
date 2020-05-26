@@ -65,12 +65,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/dotnet-core-build"
-    sha256 = "2ef58689098300fdbf56e10052b5c8df942b0e1298187ffea03f7275939ebe6d"
-    source = "https://github.com/cloudfoundry/dotnet-core-build-cnb/archive/v0.0.70.tar.gz"
-    source_sha256 = "c79670babae5594b2eff8cbe7ced4c62a849a07ea8b5997399760a990dbe24b2"
-    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.dotnet-core-build/org.cloudfoundry.dotnet-core-build_0.0.70_linux_noarch_any-stack_2ef58689.tgz"
-    version = "0.0.70"
+    sha256 = "4c7c7e69d567bb65e260cdee6e24aaa9f41ecaa5a4c412b565e0f848ff337c78"
+    source = "https://github.com/paketo-buildpacks/dotnet-core-build/archive/v0.0.90.tar.gz"
+    source_sha256 = "1f077bdb3a5a3360708db842d60f089d917b3682b2fdba1f7f6d93e7aa46d320"
+    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic"]
+    uri = "https://github.com/paketo-buildpacks/dotnet-core-build/releases/download/v0.0.90/dotnet-core-build-0.0.90.tgz"
+    version = "0.0.90"
 
 [[order]]
 
@@ -101,7 +101,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-build"
-    version = "0.0.70"
+    version = "0.0.90"
     optional = true
 
   [[order.group]]
