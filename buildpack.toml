@@ -1,13 +1,12 @@
 api = "0.2"
 
 [buildpack]
+  homepage = "https://github.com/paketo-buildpacks/dotnet-core"
   id = "paketo-buildpacks/dotnet-core"
   name = ".NET Core Buildpack"
   version = "{{.Version}}"
-  homepage = "https://github.com/paketo-buildpacks/dotnet-core"
 
 [metadata]
-  dependency_deprecation_dates = []
   include_files = ["buildpack.toml"]
 
   [[metadata.dependencies]]
@@ -39,12 +38,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/icu"
-    sha256 = "bca087ba720f4d1493a92fbd8d2a36f19cae91adf171872ef37531b174667de2"
-    source = "https://github.com/cloudfoundry/icu-cnb/archive/v0.0.52.tar.gz"
-    source_sha256 = "923941d463c6a201277a661a2ca944f9e7f4793cbda50c2de2773c60a0152161"
+    sha256 = "b892976401a22b06e43f9760768886b01aa4eea742b837a96c7eb77c49500fd0"
+    source = "https://github.com/paketo-buildpacks/icu/archive/v0.0.69.tar.gz"
+    source_sha256 = "60d0c2593faaac2290b837b6d70a7e2d524c0f11f0bd94499cf17fff1c1d7ec9"
     stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://buildpacks.cloudfoundry.org/dependencies/org.cloudfoundry.icu/org.cloudfoundry.icu_0.0.52_linux_noarch_any-stack_bca087ba.tgz"
-    version = "0.0.52"
+    uri = "https://github.com/paketo-buildpacks/icu/releases/download/v0.0.69/icu-0.0.69.tgz"
+    version = "0.0.69"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/node-engine"
@@ -82,7 +81,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
-    version = "0.0.52"
+    version = "0.0.69"
     optional = true
 
   [[order.group]]
