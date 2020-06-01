@@ -17,7 +17,7 @@ jobs:
         token: ${{ github.token }}
     - name: Checkout
       uses: actions/checkout@v2
-    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+    - run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || true
     - name: Tag
       id: tag
       uses: paketo-buildpacks/github-config/actions/tag@master
@@ -28,7 +28,7 @@ jobs:
       run: |
         mkdir -p "${{ github.workspace }}/bin"
         export PATH="${PATH}:${{ github.workspace }}/bin"
-        curl "https://github.com/paketo-buildpacks/packit/releases/download/v0.0.10/jam-linux" \
+        curl "https://github.com/paketo-buildpacks/packit/releases/download/v0.0.14/jam-linux" \
           --silent \
           --location \
           --output "${{ github.workspace }}/bin/jam"
