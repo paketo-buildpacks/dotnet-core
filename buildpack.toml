@@ -56,12 +56,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
-    sha256 = "a00147d6c556e98780ad12839a0a308b8f7f8a3c2fc35ac110b4b0dd7278f963"
-    source = "https://github.com/paketo-buildpacks/dotnet-core-aspnet/archive/v0.0.157.tar.gz"
-    source_sha256 = "562eae30174bf6c3b1c3e914f2469d2da3ba48aeba9c58f69c7b695b1362e71d"
+    sha256 = "c6538cc95fcba650b2426442dedf7358664dd177c53d50f5017f985e6a3fe716"
+    source = "https://github.com/paketo-buildpacks/dotnet-core-aspnet/archive/v0.0.159.tar.gz"
+    source_sha256 = "58e0850f1fe4955b2a5bc1d52f774db3d53189b26076077362cd1c5b424ed813"
     stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic"]
-    uri = "https://github.com/paketo-buildpacks/dotnet-core-aspnet/releases/download/v0.0.157/dotnet-core-aspnet-0.0.157.tgz"
-    version = "0.0.157"
+    uri = "https://github.com/paketo-buildpacks/dotnet-core-aspnet/releases/download/v0.0.159/dotnet-core-aspnet-0.0.159.tgz"
+    version = "0.0.159"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/dotnet-core-build"
@@ -91,7 +91,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
-    version = "0.0.157"
+    version = "0.0.159"
     optional = true
 
   [[order.group]]
