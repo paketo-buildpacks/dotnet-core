@@ -1,6 +1,7 @@
-# Dotnet Core Cloud Native Buildpack
+# .NET Core Paketo Buildpack
+## `gcr.io/paketo-buildpacks/dotnet-core`
 
-The Dotnet Cloud Native Buildpack provides a set of collaborating buildpacks that
+The .NET Core Paketo Buildpack provides a set of collaborating buildpacks that
 enable the building of a Dotnet Core-based application. These buildpacks include:
 - [Dotnet Core Runtime CNB](https://github.com/paketo-buildpacks/dotnet-core-runtime)
 - [Dotnet Core ASPNet CNB](https://github.com/paketo-buildpacks/dotnet-core-aspnet)
