@@ -47,12 +47,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/node-engine"
-    sha256 = "75465a6c1085d07fb6208a44b2741cb3e65e7091e01699a5653ebd234b196419"
-    source = "https://github.com/paketo-buildpacks/node-engine/archive/v0.0.218.tar.gz"
-    source_sha256 = "da18ce8a395fd592c2707ce3c5bbaee33023b48eef26d2689319ec65047e7629"
+    sha256 = "65f737ff50c2cca9ab3c9eae9dbdae36129da21210c5c15d6e1ad0edb7bf2b52"
+    source = "https://github.com/paketo-buildpacks/node-engine/archive/v0.0.219.tar.gz"
+    source_sha256 = "5f32cb454ef384ac3bb139d79cc82d9453d5e1cf5449610543d19544001f56bd"
     stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/paketo-buildpacks/node-engine/releases/download/v0.0.218/node-engine-0.0.218.tgz"
-    version = "0.0.218"
+    uri = "https://github.com/paketo-buildpacks/node-engine/releases/download/v0.0.219/node-engine-0.0.219.tgz"
+    version = "0.0.219"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
@@ -76,7 +76,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
-    version = "0.0.218"
+    version = "0.0.219"
     optional = true
 
   [[order.group]]
