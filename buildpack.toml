@@ -29,12 +29,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/dotnet-core-sdk"
-    sha256 = "eafeed425c3663906312064cbc64eb178da1583723ce65a33fa8d7589b0bf44b"
-    source = "https://github.com/paketo-buildpacks/dotnet-core-sdk/archive/v0.0.164.tar.gz"
-    source_sha256 = "0a9dda837509952606f62671950be374d333bb793449357166c967df33158297"
+    sha256 = "81b9ede980089206e504b154075ba7aee6d502c1f805e3781ea75470b9da5035"
+    source = "https://github.com/paketo-buildpacks/dotnet-core-sdk/archive/v0.0.166.tar.gz"
+    source_sha256 = "9e003e7cab6616031d210f4bcceac007b3a2c3d034e2904defdcdab5a488c00b"
     stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/paketo-buildpacks/dotnet-core-sdk/releases/download/v0.0.164/dotnet-core-sdk-0.0.164.tgz"
-    version = "0.0.164"
+    uri = "https://github.com/paketo-buildpacks/dotnet-core-sdk/releases/download/v0.0.166/dotnet-core-sdk-0.0.166.tgz"
+    version = "0.0.166"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/icu"
@@ -96,7 +96,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
-    version = "0.0.164"
+    version = "0.0.166"
     optional = true
 
   [[order.group]]
