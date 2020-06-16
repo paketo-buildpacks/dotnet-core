@@ -1,0 +1,36 @@
+digraph "original" {
+  o_ne [label="node-engine"];
+  o_i [label="icu"];
+  o_dcr [label="dotnet-core-runtime"];
+  o_dca [label="dotnet-core-aspnet"];
+  o_dcs [label="dotnet-core-sdk"];
+  o_dcb [label="dotnet-core-build"];
+  o_dcc [label="dotnet-core-conf"];
+
+  o_dcr -> o_dcr [color=red];
+
+  o_dca -> o_dca [color=red];
+  o_dca -> o_dcr [color=red];
+  o_dca -> o_dcr [color=blue];
+
+  o_dcs -> o_dcs [color=red];
+  o_dcs -> o_dcs [color=blue];
+  o_dcs -> o_dcr [color=red];
+  o_dcs -> o_dcr [color=blue];
+  o_dcs -> o_dca [color=red];
+  o_dcs -> o_dca [color=blue];
+
+  o_dcb -> o_dcb [color=blue];
+  o_dcb -> o_dcs [color=blue];
+  o_dcb -> o_dcs [color=red];
+  o_dcb -> o_dcr [color=blue];
+  o_dcb -> o_dcr [color=red];
+  o_dcb -> o_ne [color=blue];
+  o_dcb -> o_ne [color=red];
+  o_dcb -> o_dca [color=blue];
+  o_dcb -> o_dca [color=red];
+  o_dcb -> o_i [color=blue];
+
+  o_dcc -> o_dcc [color=blue];
+  o_dcc -> o_i [color=red];
+}
