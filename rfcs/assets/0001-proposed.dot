@@ -1,0 +1,24 @@
+digraph "proposed" {
+  p_dcr [label="dotnet-core-runtime"];
+  p_dcs [label="dotnet-core-sdk"];
+  p_dca [label="dotnet-core-aspnet"];
+  p_dp [label="dotnet-publish"];
+  p_de [label="dotnet-execute"];
+  p_ne [label="node-engine"];
+  p_i [label="icu"];
+
+  p_dp -> p_dcs [color=blue];
+  p_de -> p_dcs [color=red];
+
+  p_dp -> p_dcr [color=blue];
+  p_de -> p_dcr [color=red];
+
+  p_dp -> p_ne [color=blue];
+  p_de -> p_ne [color=red];
+
+  p_dp -> p_i [color=blue];
+  p_de -> p_i [color=red];
+
+  p_dp -> p_dca [color=blue];
+  p_de -> p_dca [color=red];
+}
