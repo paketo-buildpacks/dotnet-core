@@ -38,12 +38,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/icu"
-    sha256 = "66c5e43d4220fca14582f50c45fae2826b27b031d7187b13c65213618fd1b385"
-    source = "https://github.com/paketo-buildpacks/icu/archive/v0.0.75.tar.gz"
-    source_sha256 = "eb1ed84997c362c543493eab380189c824614a95841f057d9fe2a2afe90cf651"
+    sha256 = "79f2691a01bf01b2674179f2a34f538e1806e1c986c191431fc1febf6d5b36c6"
+    source = "https://github.com/paketo-buildpacks/icu/archive/v0.0.76.tar.gz"
+    source_sha256 = "0d9e3201270a56873fd03f81ccef10860e977d87a852c9e2fb882233c4a29991"
     stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/paketo-buildpacks/icu/releases/download/v0.0.75/icu-0.0.75.tgz"
-    version = "0.0.75"
+    uri = "https://github.com/paketo-buildpacks/icu/releases/download/v0.0.76/icu-0.0.76.tgz"
+    version = "0.0.76"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/node-engine"
@@ -81,7 +81,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
-    version = "0.0.75"
+    version = "0.0.76"
     optional = true
 
   [[order.group]]
