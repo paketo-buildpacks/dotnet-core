@@ -11,12 +11,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/dotnet-core-conf"
-    sha256 = "053a5cb0534a60d81c2883918c34d88a9c19315f39a06f003a4ff2637b8f5748"
-    source = "https://github.com/paketo-buildpacks/dotnet-core-conf/archive/v0.0.154.tar.gz"
-    source_sha256 = "6a58695ad9b19998d5a3ad10600d253ba1e94a5b20ac96193ba54e88b44cad1d"
+    sha256 = "1d250d6cee278125016a173fa810c766ac41d22a0fe82f9f2f477b0dba6a90ee"
+    source = "https://github.com/paketo-buildpacks/dotnet-core-conf/archive/v0.0.155.tar.gz"
+    source_sha256 = "8c0e15049f1c5e226cbb0810800149f0dd6c2accdd91b4bc788033972ca7f01b"
     stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic"]
-    uri = "https://github.com/paketo-buildpacks/dotnet-core-conf/releases/download/v0.0.154/dotnet-core-conf-0.0.154.tgz"
-    version = "0.0.154"
+    uri = "https://github.com/paketo-buildpacks/dotnet-core-conf/releases/download/v0.0.155/dotnet-core-conf-0.0.155.tgz"
+    version = "0.0.155"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/dotnet-core-runtime"
@@ -106,4 +106,4 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-conf"
-    version = "0.0.154"
+    version = "0.0.155"
