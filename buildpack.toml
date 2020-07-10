@@ -65,12 +65,12 @@ api = "0.2"
 
   [[metadata.dependencies]]
     id = "paketo-buildpacks/dotnet-core-build"
-    sha256 = "7df4917c9e7a2cfd1078291d274c56f2d3256f604c6408e9ebb0c03b0e4bf2bd"
-    source = "https://github.com/paketo-buildpacks/dotnet-core-build/archive/v0.0.101.tar.gz"
-    source_sha256 = "12bf95edeb6f86f597df12d7955e7100fef3875702b943723031704ff5e68e38"
+    sha256 = "8e86f7ebccf66e106ff4eaf9d964b9ae141658ea12778cda8bbcba5c8dd36e9f"
+    source = "https://github.com/paketo-buildpacks/dotnet-core-build/archive/v0.0.102.tar.gz"
+    source_sha256 = "11e868cc9d883acd55c8948b1585aac5a83bea94fcd3e3c7e651a16983af3b3d"
     stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic"]
-    uri = "https://github.com/paketo-buildpacks/dotnet-core-build/releases/download/v0.0.101/dotnet-core-build-0.0.101.tgz"
-    version = "0.0.101"
+    uri = "https://github.com/paketo-buildpacks/dotnet-core-build/releases/download/v0.0.102/dotnet-core-build-0.0.102.tgz"
+    version = "0.0.102"
 
 [[order]]
 
@@ -101,7 +101,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-build"
-    version = "0.0.101"
+    version = "0.0.102"
     optional = true
 
   [[order.group]]
