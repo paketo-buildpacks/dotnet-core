@@ -9,69 +9,6 @@ api = "0.2"
 [metadata]
   include_files = ["buildpack.toml"]
 
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/dotnet-core-conf"
-    sha256 = "7ea09804553ebe8ea715ae76bd9c208a3effbe24a64beb31b1e5ea7605fe5831"
-    source = "https://github.com/paketo-buildpacks/dotnet-core-conf/archive/v0.0.160.tar.gz"
-    source_sha256 = "c3d4b0aafc76e01d0c6d02140791a2c78ed6628a984e93f3694fa50078aca8c4"
-    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic"]
-    uri = "https://github.com/paketo-buildpacks/dotnet-core-conf/releases/download/v0.0.160/dotnet-core-conf-0.0.160.tgz"
-    version = "0.0.160"
-
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/dotnet-core-runtime"
-    sha256 = "0155f00c8f1b9f8f8b0e3aeff8da99c998646d5529a0a3b10d86bb9267760bb8"
-    source = "https://github.com/paketo-buildpacks/dotnet-core-runtime/archive/v0.0.174.tar.gz"
-    source_sha256 = "f3627cd515a5fdd93ca3c5cd09c3098982c81a9b04b81f7be5c7e6609f1595a8"
-    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/paketo-buildpacks/dotnet-core-runtime/releases/download/v0.0.174/dotnet-core-runtime-0.0.174.tgz"
-    version = "0.0.174"
-
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/dotnet-core-sdk"
-    sha256 = "22dd2117ca12c1514b377e5ed863c85fa592d2df4cda2bbe449c0c3672ee89c0"
-    source = "https://github.com/paketo-buildpacks/dotnet-core-sdk/archive/v0.0.173.tar.gz"
-    source_sha256 = "ff5e2cfbf2c03d5446410f9e00bb38c408831f1f6ef0d9035a99098fbbf33ce8"
-    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/paketo-buildpacks/dotnet-core-sdk/releases/download/v0.0.173/dotnet-core-sdk-0.0.173.tgz"
-    version = "0.0.173"
-
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/icu"
-    sha256 = "523e102968490877f015316eacff78d9f18d19c84579a5ef70ece89ea12e4e98"
-    source = "https://github.com/paketo-buildpacks/icu/archive/v0.0.82.tar.gz"
-    source_sha256 = "ebed61a8e6542509e8c06dcfa407e72f0ae56999fea3d71d83c64af0bb3c5e01"
-    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/paketo-buildpacks/icu/releases/download/v0.0.82/icu-0.0.82.tgz"
-    version = "0.0.82"
-
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/node-engine"
-    sha256 = "9121f567242893b6817a8c6326cc5018748ff9431d92773b4db2b0bbd3b74e8b"
-    source = "https://github.com/paketo-buildpacks/node-engine/archive/v0.0.237.tar.gz"
-    source_sha256 = "45b4e1436163084495e39206843c763d732eb648e3af32c36b5a7e1d38f8013f"
-    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/paketo-buildpacks/node-engine/releases/download/v0.0.237/node-engine-0.0.237.tgz"
-    version = "0.0.237"
-
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/dotnet-core-aspnet"
-    sha256 = "c36da9f2969d6918e03354901e801bb2b7f0ee5faca524593773938fa93174eb"
-    source = "https://github.com/paketo-buildpacks/dotnet-core-aspnet/archive/v0.0.169.tar.gz"
-    source_sha256 = "3593ea9afc0704a745e4f81fe40924fe10927ef859781268ee19daeaab81a2a8"
-    stacks = ["io.buildpacks.stacks.bionic", "org.cloudfoundry.stacks.cflinuxfs3"]
-    uri = "https://github.com/paketo-buildpacks/dotnet-core-aspnet/releases/download/v0.0.169/dotnet-core-aspnet-0.0.169.tgz"
-    version = "0.0.169"
-
-  [[metadata.dependencies]]
-    id = "paketo-buildpacks/dotnet-core-build"
-    sha256 = "8e86f7ebccf66e106ff4eaf9d964b9ae141658ea12778cda8bbcba5c8dd36e9f"
-    source = "https://github.com/paketo-buildpacks/dotnet-core-build/archive/v0.0.102.tar.gz"
-    source_sha256 = "11e868cc9d883acd55c8948b1585aac5a83bea94fcd3e3c7e651a16983af3b3d"
-    stacks = ["org.cloudfoundry.stacks.cflinuxfs3", "io.buildpacks.stacks.bionic"]
-    uri = "https://github.com/paketo-buildpacks/dotnet-core-build/releases/download/v0.0.102/dotnet-core-build-0.0.102.tgz"
-    version = "0.0.102"
-
 [[order]]
 
   [[order.group]]
