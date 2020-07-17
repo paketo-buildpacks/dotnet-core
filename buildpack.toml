@@ -38,7 +38,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-build"
-    version = "0.0.102"
+    version = "0.0.103"
     optional = true
 
   [[order.group]]
