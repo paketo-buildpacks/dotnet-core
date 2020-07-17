@@ -23,7 +23,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.0.176"
+    version = "0.0.177"
     optional = true
 
   [[order.group]]
