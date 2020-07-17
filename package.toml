@@ -20,4 +20,4 @@
   image = "gcr.io/paketo-buildpacks/dotnet-core-aspnet:0.0.173"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dotnet-core-build:0.0.103"
+  image = "gcr.io/paketo-buildpacks/dotnet-core-build:0.0.104"
