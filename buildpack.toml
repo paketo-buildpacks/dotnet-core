@@ -18,7 +18,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
-    version = "0.0.85"
+    version = "0.0.86"
     optional = true
 
   [[order.group]]
