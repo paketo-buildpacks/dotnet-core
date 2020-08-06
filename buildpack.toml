@@ -43,4 +43,4 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-conf"
-    version = "0.0.171"
+    version = "0.0.173"
