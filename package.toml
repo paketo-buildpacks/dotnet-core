@@ -8,7 +8,7 @@
   image = "gcr.io/paketo-buildpacks/dotnet-core-runtime:0.0.191"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dotnet-core-sdk:0.0.187"
+  image = "gcr.io/paketo-buildpacks/dotnet-core-sdk:0.0.188"
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/icu:0.0.96"
