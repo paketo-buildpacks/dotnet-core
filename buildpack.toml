@@ -13,7 +13,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
-    version = "0.0.261"
+    version = "0.0.262"
     optional = true
 
   [[order.group]]
@@ -23,7 +23,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.0.192"
+    version = "0.0.194"
     optional = true
 
   [[order.group]]
@@ -33,7 +33,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
-    version = "0.0.190"
+    version = "0.0.191"
     optional = true
 
   [[order.group]]
