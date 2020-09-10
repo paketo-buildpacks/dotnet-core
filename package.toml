@@ -5,10 +5,10 @@
   image = "gcr.io/paketo-buildpacks/dotnet-core-conf:0.0.177"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dotnet-core-runtime:0.0.195"
+  image = "gcr.io/paketo-buildpacks/dotnet-core-runtime:0.0.196"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dotnet-core-sdk:0.0.192"
+  image = "gcr.io/paketo-buildpacks/dotnet-core-sdk:0.0.193"
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/icu:0.0.97"
