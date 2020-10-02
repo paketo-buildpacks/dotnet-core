@@ -17,3 +17,6 @@ The buildpack supports the inclusion of
 [NodeJS](https://nodejs.org) for applications that may require it. This support
 is provided by the [Node Engine
 CNB](https://github.com/paketo-buildpacks/node-engine).
+
+Usage examples can be found in the
+[`samples` repository under the `dotnet-core` directory](https://github.com/paketo-buildpacks/samples/tree/main/dotnet-core).
