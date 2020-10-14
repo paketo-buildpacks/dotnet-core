@@ -21,3 +21,6 @@
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/dotnet-core-build:0.0.119"
+
+[[dependencies]]
+  image = "gcr.io/paketo-buildpacks/dotnet-publish:0.0.120"
