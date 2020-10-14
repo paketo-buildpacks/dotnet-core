@@ -7,7 +7,7 @@ enable the building of a Dotnet Core-based application. These buildpacks include
 - [Dotnet Core ASPNet CNB](https://github.com/paketo-buildpacks/dotnet-core-aspnet)
 - [Dotnet Core SDK CNB](https://github.com/paketo-buildpacks/dotnet-core-sdk)
 - [Dotnet Core Build CNB](https://github.com/paketo-buildpacks/dotnet-core-build)
-- [Dotnet Core Conf CNB](https://github.com/paketo-buildpacks/dotnet-core-conf)
+- [Dotnet Execute CNB](https://github.com/paketo-buildpacks/dotnet-execute)
 
 The buildpack supports building both runtime-dependent and self-contained
 applications. Additionally, the buildpack supports a number of combinations of
