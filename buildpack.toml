@@ -42,5 +42,5 @@ api = "0.2"
     optional = true
 
   [[order.group]]
-    id = "paketo-buildpacks/dotnet-core-conf"
-    version = "0.0.177"
+    id = "paketo-buildpacks/dotnet-execute"
+    version = "0.0.178"
