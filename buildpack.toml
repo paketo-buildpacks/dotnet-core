@@ -23,7 +23,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.0.196"
+    version = "0.0.197"
     optional = true
 
   [[order.group]]
@@ -33,7 +33,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
-    version = "0.0.193"
+    version = "0.0.194"
     optional = true
 
   [[order.group]]
@@ -42,5 +42,5 @@ api = "0.2"
     optional = true
 
   [[order.group]]
-    id = "paketo-buildpacks/dotnet-core-conf"
-    version = "0.0.177"
+    id = "paketo-buildpacks/dotnet-execute"
+    version = "0.0.178"

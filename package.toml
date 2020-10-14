@@ -2,13 +2,13 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dotnet-core-conf:0.0.177"
+  image = "gcr.io/paketo-buildpacks/dotnet-execute:0.0.178"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dotnet-core-runtime:0.0.196"
+  image = "gcr.io/paketo-buildpacks/dotnet-core-runtime:0.0.197"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dotnet-core-sdk:0.0.193"
+  image = "gcr.io/paketo-buildpacks/dotnet-core-sdk:0.0.194"
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/icu:0.0.97"
