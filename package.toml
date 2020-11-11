@@ -17,7 +17,7 @@
   image = "gcr.io/paketo-buildpacks/node-engine:0.1.3"
 
 [[dependencies]]
-  image = "gcr.io/paketo-buildpacks/dotnet-core-aspnet:0.0.195"
+  image = "gcr.io/paketo-buildpacks/dotnet-core-aspnet:0.0.196"
 
 [[dependencies]]
   image = "gcr.io/paketo-buildpacks/dotnet-publish:0.0.121"
