@@ -15,8 +15,8 @@ There are several reasons for making this switch.
    Paketo Java buildpacks. Making this change will align the buildpack with the
    rest of the buildpack ecosystem.
 1. There is native support to pass environment variables to the buildpack
-   either on a per run basis or by check configuration, in the form of
-   `project.toml`, into source control.
+   either on a per run basis or by configuration that can be checked into
+   source control, in the form of `project.toml`.
 
 ## Implementation
 The proposed environment variables for Go Build are as follow:
@@ -59,8 +59,9 @@ buildpack will detect whether or not the application has a `buildpack.yml` and
 print a warning message which will include links to documentation on how to
 upgrade and how to run builds with environment variable configuration. After
 1.0, having a `buildpack.yml` will cause a detection failure and with a link to
-the same documentation. This behavior will only last until the next patch
-release of the buildpack.
+the same documentation. This behavior will only last until the next minor
+release of the buildpack after which point there will no longer be and error
+but `buildpack.yml` will not be supported.
 
 ## Source Material
 * [Google buildpack configuration](https://github.com/GoogleCloudPlatform/buildpacks#language-idiomatic-configuration-options)
