@@ -19,7 +19,7 @@ There are several reasons for making this switch.
    source control, in the form of `project.toml`.
 
 ## Implementation
-The proposed environment variables for Go Build are as follow:
+The proposed environment variables for Dotnet are as follow:
 
 #### BP_DOTNET_FRAMEWORK_VERSION
 ```shell
