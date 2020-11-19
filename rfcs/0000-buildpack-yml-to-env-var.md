@@ -37,7 +37,7 @@ $BP_DOTNET_SDK_VERSION="2.1.804"
 ```
 This will replace the following structure in `buildpack.yml`:
 ```yaml
-dotnet-framework:
+dotnet-sdk:
   version: "2.1.804"
 ```
 
