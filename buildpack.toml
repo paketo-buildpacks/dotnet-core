@@ -43,4 +43,4 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.1.0"
+    version = "0.1.1"
