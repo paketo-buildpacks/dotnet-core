@@ -6,7 +6,7 @@
   uri = "docker://gcr.io/paketo-buildpacks/dotnet-execute:0.2.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-runtime:0.0.201"
+  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-runtime:0.1.0"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-sdk:0.0.196"
@@ -18,7 +18,7 @@
   uri = "docker://gcr.io/paketo-buildpacks/node-engine:0.1.5"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-aspnet:0.0.196"
+  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-aspnet:0.1.0"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/dotnet-publish:0.1.0"
