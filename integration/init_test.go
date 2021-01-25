@@ -33,6 +33,9 @@ func TestIntegration(t *testing.T) {
 	SetDefaultEventuallyTimeout(10 * time.Second)
 
 	suite := spec.New("Integration", spec.Parallel(), spec.Report(report.Terminal{}))
-	suite("Default", testDefault)
+	suite("TestFDD", testFDD)
+	suite("TestFDE", testFDE)
+	suite("TestSelfContained", testSelfContained)
+	suite("TestSource", testSource)
 	suite.Run(t)
 }
