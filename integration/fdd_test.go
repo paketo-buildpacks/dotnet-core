@@ -89,5 +89,47 @@ func testFDD(t *testing.T, context spec.G, it spec.S) {
 			Expect(err).NotTo(HaveOccurred())
 			Expect(string(content)).To(ContainSubstring("<title>react_app</title>"))
 		})
+
+		context("when the app contains a Procfile", func() {
+			it.Before(func() {
+				Expect(ioutil.WriteFile(filepath.Join(source, "Procfile"), []byte("web: dotnet /workspace/react-app.dll --urls http://0.0.0.0:${PORT:-8080}"), 0644)).To(Succeed())
+			})
+
+			it("creates a working OCI image", func() {
+				var err error
+				var logs fmt.Stringer
+				image, logs, err = pack.WithNoColor().Build.
+					WithBuildpacks(dotnetCoreBuildpack).
+					WithPullPolicy("never").
+					Execute(name, source)
+				Expect(err).NotTo(HaveOccurred(), logs.String())
+
+				container, err = docker.Container.Run.
+					WithEnv(map[string]string{"PORT": "8080"}).
+					WithPublish("8080").
+					WithPublishAll().
+					Execute(image.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				Eventually(container).Should(BeAvailable())
+
+				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ASP.Net Core Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET SDK Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
+
+				response, err := http.Get(fmt.Sprintf("http://localhost:%s", container.HostPort("8080")))
+				Expect(err).NotTo(HaveOccurred())
+				defer response.Body.Close()
+
+				Expect(response.StatusCode).To(Equal(http.StatusOK))
+
+				content, err := ioutil.ReadAll(response.Body)
+				Expect(err).NotTo(HaveOccurred())
+				Expect(string(content)).To(ContainSubstring("<title>react_app</title>"))
+			})
+		})
 	})
 }
