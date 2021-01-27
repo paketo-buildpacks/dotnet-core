@@ -9,37 +9,80 @@ api = "0.2"
 [metadata]
   include-files = ["buildpack.toml"]
 
-[[order]]
-
-  [[order.group]]
-    id = "paketo-buildpacks/node-engine"
-    optional = true
-    version = "0.1.6"
-
-  [[order.group]]
-    id = "paketo-buildpacks/icu"
-    optional = true
-    version = "0.0.99"
+[[order]] # Source apps
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    optional = true
     version = "0.1.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
-    optional = true
     version = "0.1.2"
+    optional = true
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
-    optional = true
     version = "0.1.1"
 
   [[order.group]]
-    id = "paketo-buildpacks/dotnet-publish"
+    id = "paketo-buildpacks/icu"
+    version = "0.0.99"
     optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/node-engine"
+    version = "0.1.6"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-publish"
     version = "0.1.1"
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-execute"
+    version = "0.3.0"
+
+[[order]] # Framework-dependent deployment and Framework-dependent executable apps
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-core-runtime"
+    version = "0.1.0"
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-core-aspnet"
+    version = "0.1.2"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-core-sdk"
+    version = "0.1.1"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/icu"
+    version = "0.0.99"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/node-engine"
+    version = "0.1.6"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-execute"
+    version = "0.3.0"
+
+[[order]] # Self-contained apps
+
+  [[order.group]]
+    id = "paketo-buildpacks/icu"
+    version = "0.0.99"
+    optional = true
+
+  [[order.group]]
+    id = "paketo-buildpacks/node-engine"
+    version = "0.1.6"
+    optional = true
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
