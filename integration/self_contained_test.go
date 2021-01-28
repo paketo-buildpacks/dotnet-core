@@ -89,7 +89,7 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 
 		context("when the app contains a Procfile", func() {
 			it.Before(func() {
-				Expect(ioutil.WriteFile(filepath.Join(source, "Procfile"), []byte("web: /workspace/react-app --urls http://0.0.0.0:${PORT:-8080}"), 0644)).To(Succeed())
+				Expect(ioutil.WriteFile(filepath.Join(source, "Procfile"), []byte("web: echo Procfile command && /workspace/react-app --urls http://0.0.0.0:${PORT:-8080}"), 0644)).To(Succeed())
 			})
 
 			it("creates a working OCI image", func() {
@@ -113,6 +113,11 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
+
+				containerLogs, err := docker.Container.Logs.Execute(container.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				Expect(containerLogs.String()).To(ContainSubstring("Procfile command"))
 
 				response, err := http.Get(fmt.Sprintf("http://localhost:%s", container.HostPort("8080")))
 				Expect(err).NotTo(HaveOccurred())
