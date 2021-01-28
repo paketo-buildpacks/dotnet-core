@@ -72,12 +72,12 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 
 			Eventually(container).Should(BeAvailable())
 
-			Expect(logs).To(ContainLines(ContainSubstring("Node Engine Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("ASP.Net Core Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring(".NET SDK Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring(".Net Publish Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("Node Engine Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
 
 			response, err := http.Get(fmt.Sprintf("http://localhost:%s", container.HostPort("8080")))
@@ -114,12 +114,12 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 
 				Eventually(container).Should(BeAvailable())
 
-				Expect(logs).To(ContainLines(ContainSubstring("Node Engine Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("ASP.Net Core Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring(".NET SDK Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring(".Net Publish Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Node Engine Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
 
 				containerLogs, err := docker.Container.Logs.Execute(container.ID)
