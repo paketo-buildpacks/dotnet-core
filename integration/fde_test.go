@@ -72,9 +72,9 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 
 			Eventually(container).Should(BeAvailable())
 
-			Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("ASP.Net Core Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("web: /workspace/react-app --urls http://0.0.0.0:${PORT:-8080}")))
 
@@ -112,9 +112,9 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 
 				Eventually(container).Should(BeAvailable())
 
-				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("ASP.Net Core Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
 
