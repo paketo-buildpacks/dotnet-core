@@ -18,7 +18,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
     optional = true
-    version = "0.1.4"
+    version = "0.1.5"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
@@ -56,7 +56,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
     optional = true
-    version = "0.1.4"
+    version = "0.1.5"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
