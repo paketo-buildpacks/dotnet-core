@@ -13,7 +13,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.1.5"
+    version = "0.1.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
@@ -51,7 +51,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.1.5"
+    version = "0.1.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
