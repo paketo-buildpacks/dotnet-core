@@ -76,6 +76,8 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("web: /workspace/react-app --urls http://0.0.0.0:${PORT:-8080}")))
 
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
+
 			response, err := http.Get(fmt.Sprintf("http://localhost:%s", container.HostPort("8080")))
 			Expect(err).NotTo(HaveOccurred())
 			defer response.Body.Close()
@@ -87,17 +89,20 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 			Expect(string(content)).To(ContainSubstring("<title>react_app</title>"))
 		})
 
-		context("when the app contains a Procfile", func() {
+		context("when using optional utility buildpacks", func() {
 			it.Before(func() {
 				Expect(ioutil.WriteFile(filepath.Join(source, "Procfile"), []byte("web: echo Procfile command && /workspace/react-app --urls http://0.0.0.0:${PORT:-8080}"), 0644)).To(Succeed())
 			})
 
-			it("creates a working OCI image", func() {
+			it("builds a working OCI image and run the app with the start command from the Procfile and other utility buildpacks", func() {
 				var err error
 				var logs fmt.Stringer
 				image, logs, err = pack.WithNoColor().Build.
 					WithBuildpacks(dotnetCoreBuildpack).
 					WithPullPolicy("never").
+					WithEnv(map[string]string{
+						"BPE_SOME_VARIABLE": "some-value",
+					}).
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
 
@@ -113,6 +118,10 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Environment Variables Buildpack")))
+
+				Expect(image.Buildpacks[3].Key).To(Equal("paketo-buildpacks/environment-variables"))
+				Expect(image.Buildpacks[3].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
 
 				containerLogs, err := docker.Container.Logs.Execute(container.ID)
 				Expect(err).NotTo(HaveOccurred())
