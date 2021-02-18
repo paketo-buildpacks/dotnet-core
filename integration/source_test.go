@@ -81,6 +81,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
 
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
 
 			response, err := http.Get(fmt.Sprintf("http://localhost:%s", container.HostPort("8080")))
 			Expect(err).NotTo(HaveOccurred())
@@ -106,6 +107,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 					WithPullPolicy("never").
 					WithEnv(map[string]string{
 						"BPE_SOME_VARIABLE": "some-value",
+						"BP_IMAGE_LABELS":   "some-label=some-value",
 					}).
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
@@ -127,9 +129,11 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Environment Variables Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Image Labels Buildpack")))
 
 				Expect(image.Buildpacks[8].Key).To(Equal("paketo-buildpacks/environment-variables"))
 				Expect(image.Buildpacks[8].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
+				Expect(image.Labels["some-label"]).To(Equal("some-value"))
 
 				containerLogs, err := docker.Container.Logs.Execute(container.ID)
 				Expect(err).NotTo(HaveOccurred())
