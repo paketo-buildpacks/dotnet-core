@@ -24,3 +24,13 @@ Usage examples can be found in the
 #### The .Net Core buildpack is compatible with the following builder(s):
 - [Paketo Full Builder](https://github.com/paketo-buildpacks/full-builder)
 - [Paketo Base Builder](https://github.com/paketo-buildpacks/base-builder)
+
+This buildpack also includes the following utility buildpacks:
+- [Procfile CNB](https://github.com/paketo-buildpacks/procfile)
+- [Environment Variables CNB](https://github.com/paketo-buildpacks/environment-variables)
+- [Image Labels CNB](https://github.com/paketo-buildpacks/image-labels)
+- [CA Certificates CNB](https://github.com/paketo-buildpacks/ca-certificates)
+
+Check out the [Paketo .NET Core CNB
+docs](https://paketo.io/docs/buildpacks/language-family-buildpacks/dotnet-core/)
+for more information.

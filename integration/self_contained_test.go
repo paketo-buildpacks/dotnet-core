@@ -1,6 +1,8 @@
 package integration_test
 
 import (
+	"crypto/tls"
+	"crypto/x509"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -90,6 +92,85 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 			Expect(string(content)).To(ContainSubstring("<title>react_app</title>"))
 		})
 
+		context("when using ca certs buildpack", func() {
+			var (
+				client *http.Client
+			)
+			it.Before(func() {
+				var err error
+				source, err = occam.Source(filepath.Join("testdata", "ca-cert-apps"))
+				Expect(err).NotTo(HaveOccurred())
+
+				caCert, err := ioutil.ReadFile(filepath.Join(source, "client-certs", "ca.pem"))
+				Expect(err).ToNot(HaveOccurred())
+
+				caCertPool := x509.NewCertPool()
+				caCertPool.AppendCertsFromPEM(caCert)
+
+				cert, err := tls.LoadX509KeyPair(filepath.Join(source, "client-certs", "cert.pem"), filepath.Join(source, "client-certs", "key.pem"))
+				Expect(err).ToNot(HaveOccurred())
+
+				client = &http.Client{
+					Transport: &http.Transport{
+						TLSClientConfig: &tls.Config{
+							RootCAs:      caCertPool,
+							Certificates: []tls.Certificate{cert},
+							MinVersion:   tls.VersionTLS12,
+						},
+					},
+				}
+			})
+
+			it("builds a working OCI image and uses a client-side CA cert for requests", func() {
+				var err error
+				var logs fmt.Stringer
+				image, logs, err = pack.WithNoColor().Build.
+					WithBuildpacks(dotnetCoreBuildpack).
+					WithPullPolicy("never").
+					Execute(name, filepath.Join(source, "self-contained-app"))
+				Expect(err).NotTo(HaveOccurred(), logs.String())
+
+				Expect(logs).To(ContainLines(ContainSubstring("CA Certificates Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("web: /workspace/source_https_app --urls http://0.0.0.0:${PORT:-8080}")))
+
+				container, err = docker.Container.Run.
+					WithPublish("8080").
+					WithEnv(map[string]string{
+						"SERVICE_BINDING_ROOT": "/bindings",
+					}).
+					WithVolume(fmt.Sprintf("%s:/bindings/ca-certificates", filepath.Join(source, "binding"))).
+					Execute(image.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				Eventually(func() string {
+					cLogs, err := docker.Container.Logs.Execute(container.ID)
+					Expect(err).NotTo(HaveOccurred())
+					return cLogs.String()
+				}).Should(
+					ContainSubstring("Added 1 additional CA certificate(s) to system truststore"),
+				)
+
+				request, err := http.NewRequest("GET", fmt.Sprintf("https://localhost:%s", container.HostPort("8080")), nil)
+				Expect(err).NotTo(HaveOccurred())
+
+				var response *http.Response
+				Eventually(func() error {
+					var err error
+					response, err = client.Do(request)
+					return err
+				}).Should(BeNil())
+				defer response.Body.Close()
+
+				Expect(response.StatusCode).To(Equal(http.StatusOK))
+
+				content, err := ioutil.ReadAll(response.Body)
+				Expect(err).NotTo(HaveOccurred())
+				Expect(string(content)).To(ContainSubstring("Hello World!"))
+			})
+		})
+
 		context("when using optional utility buildpacks", func() {
 			it.Before(func() {
 				Expect(ioutil.WriteFile(filepath.Join(source, "Procfile"), []byte("web: echo Procfile command && /workspace/react-app --urls http://0.0.0.0:${PORT:-8080}"), 0644)).To(Succeed())
@@ -123,8 +204,8 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Image Labels Buildpack")))
 
-				Expect(image.Buildpacks[3].Key).To(Equal("paketo-buildpacks/environment-variables"))
-				Expect(image.Buildpacks[3].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
+				Expect(image.Buildpacks[4].Key).To(Equal("paketo-buildpacks/environment-variables"))
+				Expect(image.Buildpacks[4].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
 				Expect(image.Labels["some-label"]).To(Equal("some-value"))
 
 				containerLogs, err := docker.Container.Logs.Execute(container.ID)
