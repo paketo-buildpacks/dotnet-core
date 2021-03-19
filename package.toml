@@ -3,7 +3,7 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-execute:0.3.1"
+  uri = "docker://gcr.io/paketo-buildpacks/dotnet-execute:0.3.2"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-runtime:0.1.8"
@@ -12,7 +12,7 @@
   uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-sdk:0.1.7"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/icu:0.0.100"
+  uri = "docker://gcr.io/paketo-buildpacks/icu:0.0.101"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/node-engine:0.2.2"

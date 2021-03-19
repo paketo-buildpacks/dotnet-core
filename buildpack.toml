@@ -32,7 +32,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.0.100"
+    version = "0.0.101"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
@@ -45,7 +45,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.3.1"
+    version = "0.3.2"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
@@ -86,7 +86,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.0.100"
+    version = "0.0.101"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
@@ -95,7 +95,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.3.1"
+    version = "0.3.2"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
@@ -122,7 +122,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.0.100"
+    version = "0.0.101"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
@@ -131,7 +131,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.3.1"
+    version = "0.3.2"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
