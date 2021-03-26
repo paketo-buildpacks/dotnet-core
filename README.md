@@ -33,4 +33,5 @@ This buildpack also includes the following utility buildpacks:
 
 Check out the [Paketo .NET Core CNB
 docs](https://paketo.io/docs/buildpacks/language-family-buildpacks/dotnet-core/)
-for more information.
+for more information. To edit the docs content published on the above page,
+make changes to [this document](docs/content/dotnet-core.md).
