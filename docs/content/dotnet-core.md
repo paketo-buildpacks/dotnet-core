@@ -74,10 +74,10 @@ they are already included in the SCD artifact.
 The .Net Core Runtime and .Net Core ASP.Net Buildpacks allow you to specify a
 version of the .Net Core Runtime and ASP.Net to use during deployment. This
 version can be specified in several ways including through a
-`runtimeconfig.json`, MSBuild Project file, or `buildpack.yml` file. When
-specifying a version of the .Net Core Runtime and ASP.Net, you must choose a
-version that is available within these buildpacks. These versions can be found
-in the [.Net Core Runtime release
+`runtimeconfig.json`, MSBuild Project file, or build-time environment
+variables. When specifying a version of the .Net Core Runtime and ASP.Net, you
+must choose a version that is available within these buildpacks. These versions
+can be found in the [.Net Core Runtime release
 notes](https://github.com/paketo-buildpacks/dotnet-core-runtime/releases) and
 [.Net Core ASP.Net release
 notes](https://github.com/paketo-buildpacks/dotnet-core-aspnet/releases).
@@ -86,20 +86,21 @@ notes](https://github.com/paketo-buildpacks/dotnet-core-aspnet/releases).
 application declares its Runtime Framework as either `Microsoft.AspNetCore.App`
 or `Microsoft.AspNetCore.All`.
 
-### Using buildpack.yml
+### Using BP_DOTNET_FRAMEWORK_VERSION
 
-To configure the buildpack to use .Net Core Runtime and ASP.Net v2.1.14 when
-deploying your app, include the values below in your `buildpack.yml` file:
-
+To configure the buildpack to use .Net Core Runtime and ASP.Net v5.0.4 when
+deploying your app, set the following environment variable at build time,
+either directly (e.g. `pack build my-app --env
+BP_DOTNET_FRAMEWORK_VERSION=5.0.4`) or through a
+[project.toml](https://github.com/buildpacks/spec/blob/main/extensions/project-descriptor.md)
+file:
 {{< code/copyable >}}
----
-dotnet-framework:
-  version: "2.1.14"
+BP_DOTNET_FRAMEWORK_VERSION=5.0.4
 {{< /code/copyable >}}
 
-**Note**: If you include any `dotnet-framework.version` entry in your
-`buildpack.yml`, the buildpack **will not** run runtime version roll-forward
-logic. To learn more about roll-forward logic, see the [Microsoft .Net Runtime
+**Note**: If you specify a particular version using the above environment
+variable, the buildpack **will not** run runtime version roll-forward logic. To
+learn more about roll-forward logic, see the [Microsoft .Net Runtime
 documentation](https://docs.microsoft.com/en-us/dotnet/core/versions/selection#framework-dependent-apps-roll-forward).
 
 ### Using runtimeconfig.json
@@ -160,6 +161,13 @@ has put together for .Net Core Framework. If you would like to know more about
 the policy please refer to this
 [documentation](https://docs.microsoft.com/en-us/dotnet/core/versions/selection)
 provided by Microsoft.
+
+### Deprecated: Using buildpack.yml
+
+Specifying the .Net Core Framework version through `buildpack.yml`
+configuration will be deprecated in .Net Core Runtime and .Net Core ASPNET
+Buildpacks v1.0.0.  To migrate from using `buildpack.yml` please set the
+`BP_DOTNET_FRAMEWORK_VERSION` environment variable.
 
 ## Specifying an SDK Version
 
