@@ -207,14 +207,20 @@ the values below in your `global.json` file:
 By default, the .Net Core Build Buildpack will consider the root directory of
 your codebase to be the project directory. This directory should contain a C#,
 F#, or Visual Basic Project file. If your project directory is not located at
-the root of your source code, you can override the project directory by
-including the following values in your `buildpack.yml` file:
+the root of your source code you will need to set a custom project path.
 
-{{< code/copyable >}}
----
-dotnet-build:
-  project-path: "src/asp_web_app"
-{{< /code/copyable >}}
+### Using BP_DOTNET_PROJECT_PATH
+
+You can specify a custom project path by setting the `$BP_DOTNET_PROJECT_PATH`
+environment variable at build time either directly (e.g.  pack build my-app
+--env BP_DOTNET_PROJECT_PATH=./src/my-app) or through a project.toml file.
+
+### Deprecated: Using buildpack.yml
+
+Specifying the project path through `buildpack.yml` configuration will be
+deprecated in Dotnet Publish Buildpack v1.0.0 & Dotnet Execute Buildpack
+v1.0.0.  To migrate from using `buildpack.yml` please set the
+`$BP_DOTNET_PROJECT_PATH` environment variable.
 
 ## Buildpack-Set Environment Variables
 
