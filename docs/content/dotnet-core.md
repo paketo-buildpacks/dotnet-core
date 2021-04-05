@@ -295,3 +295,27 @@ variable.
 {{< code/copyable >}}
 ./myapp --urls http://0.0.0.0:${PORT:-8080}
 {{< /code/copyable >}}
+
+## Using CA Certificates
+.Net Core Buildpack users can provide their own CA certificates and have them
+included in the container root truststore at build-time and runtime by
+following the instructions outlined in the [CA
+Certificates](https://paketo.io/docs/buildpacks/configuration/#ca-certificates)
+section of our configuration docs.
+
+## Setting Custom Start Processes
+.Net Core Buildpack users can set custom start processes for their app image by
+following the instructions in the
+[Procfiles](https://paketo.io/docs/buildpacks/configuration/#procfiles) section
+of our configuration docs.
+
+## Setting Environment Variables in the App Image
+.Net Core Buildpack users can embed launch-time environment variables in their
+app image by following the documentation for the [Environment Variables
+Buildpack](https://github.com/paketo-buildpacks/environment-variables/blob/main/README.md).
+
+## Adding Custom Labels to the App Image
+.Net Core Buildpack users can add labels to their app image by following the
+instructions in the [Applying Custom
+Labels](https://paketo.io/docs/buildpacks/configuration/#applying-custom-labels)
+section of our configuration docs.
