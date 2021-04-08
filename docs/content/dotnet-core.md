@@ -181,18 +181,12 @@ within the buildpack. These versions can be found in the [release
 notes](https://github.com/paketo-buildpacks/dotnet-core-sdk/releases).
 
 However, the .Net Core SDK version can be explicitly set by specifying a
-version in either a `buildpack.yml` or `global.json` file.
+version in a `buildpack.yml` or `global.json` file.
 
-### Using buildpack.yml
+### Deprecated: Using buildpack.yml
 
-To configure the buildpack to use .Net Core SDK v2.1.804 when deploying your
-app, include the values below in your `buildpack.yml` file:
-
-{{< code/copyable >}}
----
-dotnet-sdk:
-  version: "2.1.804"
-{{< /code/copyable >}}
+Specifying the .Net Core SDK version through `buildpack.yml` configuration will
+be deprecated in .Net Core SDK Buildpack v1.0.0.
 
 ### Using global.json
 
