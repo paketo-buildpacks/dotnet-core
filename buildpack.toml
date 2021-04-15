@@ -32,7 +32,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.0.101"
+    version = "0.0.102"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
@@ -41,7 +41,7 @@ api = "0.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
-    version = "0.1.5"
+    version = "0.2.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
@@ -86,7 +86,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.0.101"
+    version = "0.0.102"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
@@ -122,7 +122,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.0.101"
+    version = "0.0.102"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
