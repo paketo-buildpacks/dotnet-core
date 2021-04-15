@@ -86,16 +86,26 @@ notes](https://github.com/paketo-buildpacks/dotnet-core-aspnet/releases).
 application declares its Runtime Framework as either `Microsoft.AspNetCore.App`
 or `Microsoft.AspNetCore.All`.
 
-### Using BP_DOTNET_FRAMEWORK_VERSION
+### Using `BP_DOTNET_FRAMEWORK_VERSION`
 
-To configure the buildpack to use .Net Core Runtime and ASP.Net v5.0.4 when
-deploying your app, set the following environment variable at build time,
-either directly (e.g. `pack build my-app --env
-BP_DOTNET_FRAMEWORK_VERSION=5.0.4`) or through a
-[project.toml](https://github.com/buildpacks/spec/blob/main/extensions/project-descriptor.md)
-file:
+To configure the buildpack to use a certain version of the .Net Core Runtime
+and ASP.Net when deploying your app, set the `$BP_DOTNET_FRAMEWORK` environment
+variable at build time, either by passing a flag to the
+[platform](https://buildpacks.io/docs/concepts/components/platform/) or by
+adding it to your `project.toml`. See the Cloud Native Buildpacks
+[documentation](https://buildpacks.io/docs/app-developer-guide/using-project-descriptor/)
+to learn more about `project.toml` files.
+
+**With a `pack build` flag**
 {{< code/copyable >}}
-BP_DOTNET_FRAMEWORK_VERSION=5.0.4
+pack build myapp --env BP_DOTNET_FRAMEWORK_VERSION=5.0.4
+{{< /code/copyable >}}
+
+**In a `project.toml` file**
+{{< code/copyable >}}
+[[ build.env ]]
+  name = 'BP_DOTNET_FRAMEWORK_VERSION'
+  value = '5.0.4'
 {{< /code/copyable >}}
 
 **Note**: If you specify a particular version using the above environment
@@ -166,7 +176,7 @@ provided by Microsoft.
 
 Specifying the .Net Core Framework version through `buildpack.yml`
 configuration will be deprecated in .Net Core Runtime and .Net Core ASPNET
-Buildpacks v1.0.0.  To migrate from using `buildpack.yml` please set the
+Buildpacks v1.0.0.  To migrate from using `buildpack.yml`, please set the
 `BP_DOTNET_FRAMEWORK_VERSION` environment variable.
 
 ## Specifying an SDK Version
@@ -182,11 +192,6 @@ notes](https://github.com/paketo-buildpacks/dotnet-core-sdk/releases).
 
 However, the .Net Core SDK version can be explicitly set by specifying a
 version in a `buildpack.yml` or `global.json` file.
-
-### Deprecated: Using buildpack.yml
-
-Specifying the .Net Core SDK version through `buildpack.yml` configuration will
-be deprecated in .Net Core SDK Buildpack v1.0.0.
 
 ### Using global.json
 
@@ -204,6 +209,18 @@ the values below in your `global.json` file:
 }
 {{< /code/copyable >}}
 
+### Deprecated: Using buildpack.yml
+
+Specifying the .Net Core SDK version through `buildpack.yml` configuration will
+be deprecated in .Net Core SDK Buildpack v1.0.0.
+
+Because versions of the .NET Core runtime and .NET Core SDK dependencies are so
+tightly coupled, most users should instead use the
+`BP_DOTNET_FRAMEWORK_VERSION` environment variable to specify which version of
+the .NET Core runtime that the .NET Core Runtime Buildpack should install. The
+.Net Core SDK buildpack will automatically install an SDK version that is
+compatible with the selected .NET Core runtime version.
+
 ## Specifying a Custom Project Path
 
 By default, the .Net Core Build Buildpack will consider the root directory of
@@ -211,17 +228,36 @@ your codebase to be the project directory. This directory should contain a C#,
 F#, or Visual Basic Project file. If your project directory is not located at
 the root of your source code you will need to set a custom project path.
 
-### Using BP_DOTNET_PROJECT_PATH
+### Using `BP_DOTNET_PROJECT_PATH`
 
-You can specify a custom project path by setting the `$BP_DOTNET_PROJECT_PATH`
-environment variable at build time either directly (e.g.  pack build my-app
---env BP_DOTNET_PROJECT_PATH=./src/my-app) or through a project.toml file.
+You can specify a project path by setting the `$BP_DOTNET_PROJECT_PATH`
+environment variable at build time, either by passing a flag to the
+[platform](https://buildpacks.io/docs/concepts/components/platform/) or by
+adding it to your `project.toml`. See the Cloud Native Buildpacks
+[documentation](https://buildpacks.io/docs/app-developer-guide/using-project-descriptor/)
+to learn more about `project.toml` files.
+
+**With a `pack build` flag**
+{{< code/copyable >}}
+pack build my-app --env BP_DOTNET_PROJECT_PATH=./src/my-app
+{{< /code/copyable >}}
+
+
+**In a `project.toml` file**
+{{< code/copyable >}}
+[[ build.env ]]
+  name = 'BP_DOTNET_PROJECT_PATH'
+  value = './src/my-app'
+{{< /code/copyable >}}
+See the [Cloud Native Buildpacks
+documentation](https://buildpacks.io/docs/app-developer-guide/using-project-descriptor/)
+to learn more about `project.toml` files.
 
 ### Deprecated: Using buildpack.yml
 
 Specifying the project path through `buildpack.yml` configuration will be
 deprecated in Dotnet Publish Buildpack v1.0.0 & Dotnet Execute Buildpack
-v1.0.0.  To migrate from using `buildpack.yml` please set the
+v1.0.0. To migrate from using `buildpack.yml`, please set the
 `$BP_DOTNET_PROJECT_PATH` environment variable.
 
 ## Buildpack-Set Environment Variables
