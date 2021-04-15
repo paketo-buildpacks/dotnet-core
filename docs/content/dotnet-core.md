@@ -181,33 +181,13 @@ Buildpacks v1.0.0.  To migrate from using `buildpack.yml`, please set the
 
 ## Specifying an SDK Version
 
-The .Net Core SDK Buildpack allows you to specify a version of the .Net Core
-SDK to use during deployment. This version is usually derived from the .Net
-Core Runtime version chosen for the application. The .Net Core SDK Buildpack
-maintains a set of SDK versions that are known compatible versions to run with
-any of the set of available .Net Core Runtime versions. When specifying a
-version of the .Net Core SDK, you must choose a version that is available
-within the buildpack. These versions can be found in the [release
-notes](https://github.com/paketo-buildpacks/dotnet-core-sdk/releases).
+By default, the .Net Core SDK Buildpack installs the latest available patch
+version of the SDK that is compatible with the installed .Net Core runtime.
+The available SDK versions for each buildpack release can be found in the
+[release notes](https://github.com/paketo-buildpacks/dotnet-core-sdk/releases).
 
 However, the .Net Core SDK version can be explicitly set by specifying a
-version in a `buildpack.yml` or `global.json` file.
-
-### Using global.json
-
-If you are using a
-[`global.json`](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json)
-file, you can specify the .Net Core SDK version within that file. To configure
-the buildpack to use .Net Core SDK v2.1.804 when deploying your app, include
-the values below in your `global.json` file:
-
-{{< code/copyable >}}
-{
-  "sdk": {
-    "version": "2.1.804"
-  }
-}
-{{< /code/copyable >}}
+version in a `buildpack.yml` file.
 
 ### Deprecated: Using buildpack.yml
 
