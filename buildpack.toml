@@ -14,7 +14,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/ca-certificates"
     optional = true
-    version = "2.1.0"
+    version = "2.2.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
@@ -67,7 +67,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/ca-certificates"
     optional = true
-    version = "2.1.0"
+    version = "2.2.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
@@ -117,7 +117,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/ca-certificates"
     optional = true
-    version = "2.1.0"
+    version = "2.2.0"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
