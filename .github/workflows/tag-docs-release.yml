@@ -4,8 +4,12 @@ on:
   release:
     types:
     - published
-  workflow_dispatch: {}
-
+  workflow_dispatch:
+    inputs:
+      debug_enabled:
+        description: 'Run the build with tmate debugging enabled (https://github.com/marketplace/actions/debugging-with-tmate)'
+        required: false
+        default: false
 jobs:
   tag:
     name: Tag
@@ -27,6 +31,11 @@ jobs:
       uses: paketo-buildpacks/github-config/actions/tag/tag-docs-submodule@main
       with:
         version: ${{ steps.event.outputs.tag }}
+
+    # Enable tmate debugging of manually-triggered workflows if the input option was provided
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+      if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.debug_enabled }}
 
     - name: Create Docs Tag
       run: |
