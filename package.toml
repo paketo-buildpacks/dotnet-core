@@ -18,7 +18,7 @@
   uri = "docker://gcr.io/paketo-buildpacks/node-engine:0.4.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-aspnet:0.1.11"
+  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-aspnet:0.1.12"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/dotnet-publish:0.3.0"
