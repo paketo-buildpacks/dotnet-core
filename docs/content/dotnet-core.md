@@ -6,8 +6,6 @@ menu:
     parent: "language-family-buildpacks"
 ---
 
-# .Net Core Buildpack
-
 The [.Net Core Paketo Buildpack](https://github.com/paketo-buildpacks/dotnet-core)
 supports building several configurations of .Net Core applications.
 
