@@ -24,13 +24,13 @@
   uri = "docker://gcr.io/paketo-buildpacks/dotnet-publish:0.3.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/procfile:4.3.0"
+  uri = "docker://gcr.io/paketo-buildpacks/procfile:4.3.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/environment-variables:3.2.0"
+  uri = "docker://gcr.io/paketo-buildpacks/environment-variables:3.2.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/image-labels:3.2.0"
+  uri = "docker://gcr.io/paketo-buildpacks/image-labels:3.2.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/ca-certificates:2.4.0"
+  uri = "docker://gcr.io/paketo-buildpacks/ca-certificates:2.4.1"
