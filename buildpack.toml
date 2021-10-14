@@ -17,6 +17,11 @@ api = "0.2"
     version = "2.4.2"
 
   [[order.group]]
+    id = "paketo-buildpacks/watchexec"
+    optional = true
+    version = "1.2.0"
+
+  [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
     version = "0.2.2"
 
@@ -70,6 +75,11 @@ api = "0.2"
     version = "2.4.2"
 
   [[order.group]]
+    id = "paketo-buildpacks/watchexec"
+    optional = true
+    version = "1.2.0"
+
+  [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
     version = "0.2.2"
 
@@ -118,6 +128,11 @@ api = "0.2"
     id = "paketo-buildpacks/ca-certificates"
     optional = true
     version = "2.4.2"
+
+  [[order.group]]
+    id = "paketo-buildpacks/watchexec"
+    optional = true
+    version = "1.2.0"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
