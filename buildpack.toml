@@ -65,7 +65,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/image-labels"
     optional = true
-    version = "3.2.2"
+    version = "3.2.3"
 
 [[order]]
 
@@ -120,7 +120,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/image-labels"
     optional = true
-    version = "3.2.2"
+    version = "3.2.3"
 
 [[order]]
 
@@ -161,4 +161,4 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/image-labels"
     optional = true
-    version = "3.2.2"
+    version = "3.2.3"
