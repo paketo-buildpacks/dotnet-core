@@ -42,7 +42,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
     optional = true
-    version = "0.9.0"
+    version = "0.10.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
@@ -101,7 +101,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
     optional = true
-    version = "0.9.0"
+    version = "0.10.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
@@ -142,7 +142,7 @@ api = "0.2"
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
     optional = true
-    version = "0.9.0"
+    version = "0.10.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
