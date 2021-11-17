@@ -37,7 +37,7 @@ api = "0.6"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.0.102"
+    version = "0.1.0"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
@@ -96,7 +96,7 @@ api = "0.6"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.0.102"
+    version = "0.1.0"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
@@ -137,7 +137,7 @@ api = "0.6"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.0.102"
+    version = "0.1.0"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
