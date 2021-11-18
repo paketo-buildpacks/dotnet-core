@@ -23,12 +23,12 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.3.0"
+    version = "0.4.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
     optional = true
-    version = "0.3.0"
+    version = "0.4.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
@@ -46,7 +46,7 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
-    version = "0.4.0"
+    version = "0.5.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
@@ -81,12 +81,12 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.3.0"
+    version = "0.4.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
     optional = true
-    version = "0.3.0"
+    version = "0.4.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
