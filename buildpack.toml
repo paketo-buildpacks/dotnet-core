@@ -50,7 +50,7 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.5.1"
+    version = "0.6.0"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
@@ -105,7 +105,7 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.5.1"
+    version = "0.6.0"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
@@ -146,7 +146,7 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.5.1"
+    version = "0.6.0"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
