@@ -9,7 +9,7 @@
   uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-runtime:0.3.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-sdk:0.3.0"
+  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-sdk:0.4.0"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/icu:0.1.0"
