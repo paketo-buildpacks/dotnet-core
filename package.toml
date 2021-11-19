@@ -3,25 +3,25 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-execute:0.5.1"
+  uri = "docker://gcr.io/paketo-buildpacks/dotnet-execute:0.6.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-runtime:0.3.0"
+  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-runtime:0.4.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-sdk:0.3.0"
+  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-sdk:0.4.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/icu:0.0.102"
+  uri = "docker://gcr.io/paketo-buildpacks/icu:0.1.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/node-engine:0.10.0"
+  uri = "docker://gcr.io/paketo-buildpacks/node-engine:0.11.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-aspnet:0.3.0"
+  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-aspnet:0.4.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-publish:0.4.0"
+  uri = "docker://gcr.io/paketo-buildpacks/dotnet-publish:0.5.0"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/procfile:4.4.1"
