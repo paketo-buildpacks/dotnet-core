@@ -23,16 +23,16 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.4.0"
+    version = "0.5.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
     optional = true
-    version = "0.4.0"
+    version = "0.5.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
-    version = "0.4.0"
+    version = "0.5.0"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
@@ -46,11 +46,11 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
-    version = "0.5.0"
+    version = "0.5.1"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.6.0"
+    version = "0.7.0"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
@@ -81,17 +81,17 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.4.0"
+    version = "0.5.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
     optional = true
-    version = "0.4.0"
+    version = "0.5.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
     optional = true
-    version = "0.4.0"
+    version = "0.5.0"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
@@ -105,7 +105,7 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.6.0"
+    version = "0.7.0"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
@@ -146,7 +146,7 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.6.0"
+    version = "0.7.0"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
