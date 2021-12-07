@@ -21,7 +21,7 @@
   uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-aspnet:0.5.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-publish:0.5.0"
+  uri = "docker://gcr.io/paketo-buildpacks/dotnet-publish:0.5.1"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/procfile:5.0.1"
