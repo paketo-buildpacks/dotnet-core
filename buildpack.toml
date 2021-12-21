@@ -1,10 +1,16 @@
 api = "0.6"
 
 [buildpack]
+  description = "A language family buildpack for pulling in all buildpacks related to building .NET Core apps"
   homepage = "https://github.com/paketo-buildpacks/dotnet-core"
   id = "paketo-buildpacks/dotnet-core"
   name = "Paketo .NET Core Buildpack"
+  keywords = ["dotnet"]
   version = "{{.Version}}"
+
+  [[buildpack.licenses]]
+    type = "Apache-2.0"
+    uri = "https://github.com/paketo-buildpacks/dotnet-core/blob/main/LICENSE"
 
 [metadata]
   include-files = ["buildpack.toml"]
