@@ -4,8 +4,8 @@ api = "0.6"
   description = "A language family buildpack for pulling in all buildpacks related to building .NET Core apps"
   homepage = "https://github.com/paketo-buildpacks/dotnet-core"
   id = "paketo-buildpacks/dotnet-core"
-  name = "Paketo .NET Core Buildpack"
   keywords = ["dotnet"]
+  name = "Paketo .NET Core Buildpack"
   version = "{{.Version}}"
 
   [[buildpack.licenses]]
