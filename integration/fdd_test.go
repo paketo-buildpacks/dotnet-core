@@ -79,7 +79,6 @@ func testFDD(t *testing.T, context spec.G, it spec.S) {
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("web: dotnet /workspace/react-app.dll --urls http://0.0.0.0:${PORT:-8080}")))
 
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))

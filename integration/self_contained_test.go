@@ -76,7 +76,6 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 
 			Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("web: /workspace/react-app --urls http://0.0.0.0:${PORT:-8080}")))
 
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
@@ -133,7 +132,6 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring("CA Certificates Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("web: /workspace/source_https_app --urls http://0.0.0.0:${PORT:-8080}")))
 
 				container, err = docker.Container.Run.
 					WithPublish("8080").
