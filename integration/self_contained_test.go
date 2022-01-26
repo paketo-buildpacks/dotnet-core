@@ -76,7 +76,6 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 
 			Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("web: /workspace/react-app --urls http://0.0.0.0:${PORT:-8080}")))
 
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
@@ -133,7 +132,6 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring("CA Certificates Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("web: /workspace/source_https_app --urls http://0.0.0.0:${PORT:-8080}")))
 
 				container, err = docker.Container.Run.
 					WithPublish("8080").
@@ -172,8 +170,13 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 		})
 
 		context("when using optional utility buildpacks", func() {
+			var procfileContainer occam.Container
 			it.Before(func() {
-				Expect(ioutil.WriteFile(filepath.Join(source, "Procfile"), []byte("web: echo Procfile command && /workspace/react-app --urls http://0.0.0.0:${PORT:-8080}"), 0644)).To(Succeed())
+				Expect(os.WriteFile(filepath.Join(source, "Procfile"), []byte("procfile: echo Procfile command"), 0644)).To(Succeed())
+			})
+
+			it.After(func() {
+				Expect(docker.Container.Remove.Execute(procfileContainer.ID)).To(Succeed())
 			})
 
 			it("builds a working OCI image and run the app with the start command from the Procfile and other utility buildpacks", func() {
@@ -190,15 +193,6 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
 
-				container, err = docker.Container.Run.
-					WithEnv(map[string]string{"PORT": "8080"}).
-					WithPublish("8080").
-					WithPublishAll().
-					Execute(image.ID)
-				Expect(err).NotTo(HaveOccurred())
-
-				Eventually(container).Should(BeAvailable())
-
 				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
 				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
@@ -210,20 +204,24 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 				Expect(image.Buildpacks[5].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
 				Expect(image.Labels["some-label"]).To(Equal("some-value"))
 
-				containerLogs, err := docker.Container.Logs.Execute(container.ID)
+				container, err = docker.Container.Run.
+					WithEnv(map[string]string{"PORT": "8080"}).
+					WithPublish("8080").
+					WithPublishAll().
+					Execute(image.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				Eventually(container).Should(Serve((ContainSubstring("<title>react_app</title>"))))
+
+				procfileContainer, err = docker.Container.Run.
+					WithEntrypoint("procfile").
+					Execute(image.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				containerLogs, err := docker.Container.Logs.Execute(procfileContainer.ID)
 				Expect(err).NotTo(HaveOccurred())
 
 				Expect(containerLogs.String()).To(ContainSubstring("Procfile command"))
-
-				response, err := http.Get(fmt.Sprintf("http://localhost:%s", container.HostPort("8080")))
-				Expect(err).NotTo(HaveOccurred())
-				defer response.Body.Close()
-
-				Expect(response.StatusCode).To(Equal(http.StatusOK))
-
-				content, err := ioutil.ReadAll(response.Body)
-				Expect(err).NotTo(HaveOccurred())
-				Expect(string(content)).To(ContainSubstring("<title>react_app</title>"))
 			})
 		})
 	})
