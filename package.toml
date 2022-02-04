@@ -6,7 +6,7 @@
   uri = "docker://gcr.io/paketo-buildpacks/dotnet-execute:0.7.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-runtime:0.5.1"
+  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-runtime:0.5.2"
 
 [[dependencies]]
   uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-sdk:0.5.2"
