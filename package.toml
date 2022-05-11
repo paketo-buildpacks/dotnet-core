@@ -3,37 +3,37 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-execute:0.8.1"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-execute@0.8.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-runtime:0.7.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-runtime@0.7.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-sdk:0.6.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-sdk@0.6.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/icu:0.1.1"
+  uri = "urn:cnb:registry:paketo-buildpacks/icu@0.1.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/node-engine:0.12.3"
+  uri = "urn:cnb:registry:paketo-buildpacks/node-engine@0.12.3"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-core-aspnet:0.6.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-aspnet@0.6.0"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/dotnet-publish:0.7.3"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@0.7.3"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/procfile:5.1.1"
+  uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.1.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/environment-variables:4.1.1"
+  uri = "urn:cnb:registry:paketo-buildpacks/environment-variables@4.1.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/image-labels:4.1.1"
+  uri = "urn:cnb:registry:paketo-buildpacks/image-labels@4.1.1"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/ca-certificates:3.2.2"
+  uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.2.2"
 
 [[dependencies]]
-  uri = "docker://gcr.io/paketo-buildpacks/watchexec:2.4.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/watchexec@2.4.0"
