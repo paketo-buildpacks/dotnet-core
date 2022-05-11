@@ -4,7 +4,7 @@ import (
 	"crypto/tls"
 	"crypto/x509"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -91,7 +91,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 
 			Expect(response.StatusCode).To(Equal(http.StatusOK))
 
-			content, err := ioutil.ReadAll(response.Body)
+			content, err := io.ReadAll(response.Body)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(string(content)).To(ContainSubstring("<title>react_app</title>"))
 		})
@@ -105,7 +105,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 				source, err = occam.Source(filepath.Join("testdata", "ca-cert-apps"))
 				Expect(err).NotTo(HaveOccurred())
 
-				caCert, err := ioutil.ReadFile(filepath.Join(source, "client-certs", "ca.pem"))
+				caCert, err := os.ReadFile(filepath.Join(source, "client-certs", "ca.pem"))
 				Expect(err).ToNot(HaveOccurred())
 
 				caCertPool := x509.NewCertPool()
@@ -172,7 +172,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 
 				Expect(response.StatusCode).To(Equal(http.StatusOK))
 
-				content, err := ioutil.ReadAll(response.Body)
+				content, err := io.ReadAll(response.Body)
 				Expect(err).NotTo(HaveOccurred())
 				Expect(string(content)).To(ContainSubstring("Hello World!"))
 			})
