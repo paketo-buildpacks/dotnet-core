@@ -29,16 +29,16 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.7.2"
+    version = "0.8.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
     optional = true
-    version = "0.6.2"
+    version = "0.7.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
-    version = "0.6.2"
+    version = "0.7.0"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
@@ -87,17 +87,17 @@ api = "0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.7.2"
+    version = "0.8.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
     optional = true
-    version = "0.6.2"
+    version = "0.7.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
     optional = true
-    version = "0.6.2"
+    version = "0.7.0"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
