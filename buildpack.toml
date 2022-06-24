@@ -5,7 +5,7 @@ api = "0.6"
   homepage = "https://github.com/paketo-buildpacks/dotnet-core"
   id = "paketo-buildpacks/dotnet-core"
   keywords = ["dotnet"]
-  name = "Paketo .NET Core Buildpack"
+  name = "MODDED Paketo .NET Core Buildpack"
   version = "{{.Version}}"
 
   [[buildpack.licenses]]
@@ -28,15 +28,6 @@ api = "0.6"
     version = "2.4.1"
 
   [[order.group]]
-    id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.8.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/dotnet-core-aspnet"
-    optional = true
-    version = "0.7.0"
-
-  [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
     version = "0.7.0"
 
@@ -53,6 +44,12 @@ api = "0.6"
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
     version = "0.7.4"
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-core-aspnet"
+    optional = true
+    version = "0.7.0"
+
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
@@ -86,15 +83,6 @@ api = "0.6"
     version = "2.4.1"
 
   [[order.group]]
-    id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.8.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/dotnet-core-aspnet"
-    optional = true
-    version = "0.7.0"
-
-  [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
     optional = true
     version = "0.7.0"
@@ -103,6 +91,11 @@ api = "0.6"
     id = "paketo-buildpacks/icu"
     optional = true
     version = "0.1.2"
+
+  [[order.group]]
+    id = "paketo-buildpacks/dotnet-core-aspnet"
+    optional = true
+    version = "0.7.0"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
