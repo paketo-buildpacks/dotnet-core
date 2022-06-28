@@ -36,8 +36,9 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 			image     occam.Image
 			container occam.Container
 
-			name   string
-			source string
+			name    string
+			source  string
+			sbomDir string
 		)
 
 		it.Before(func() {
@@ -47,13 +48,19 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 
 			source, err = occam.Source(filepath.Join("testdata", "fde-app"))
 			Expect(err).NotTo(HaveOccurred())
+
+			sbomDir, err = os.MkdirTemp("", "sbom")
+			Expect(err).NotTo(HaveOccurred())
+			Expect(os.Chmod(sbomDir, os.ModePerm)).To(Succeed())
 		})
 
 		it.After(func() {
 			Expect(docker.Container.Remove.Execute(container.ID)).To(Succeed())
 			Expect(docker.Image.Remove.Execute(image.ID)).To(Succeed())
 			Expect(docker.Volume.Remove.Execute(occam.CacheVolumeNames(name))).To(Succeed())
+
 			Expect(os.RemoveAll(source)).To(Succeed())
+			Expect(os.RemoveAll(sbomDir)).To(Succeed())
 		})
 
 		it("creates a working OCI image", func() {
@@ -61,6 +68,7 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 			var logs fmt.Stringer
 			image, logs, err = pack.WithNoColor().Build.
 				WithBuildpacks(dotnetCoreBuildpack).
+				WithSBOMOutputDir(sbomDir).
 				WithPullPolicy("never").
 				Execute(name, source)
 			Expect(err).NotTo(HaveOccurred(), logs.String())
@@ -91,6 +99,23 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 			content, err := io.ReadAll(response.Body)
 			Expect(err).NotTo(HaveOccurred())
 			Expect(string(content)).To(ContainSubstring("<title>react_app</title>"))
+
+			// check that all required SBOM files are present
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.cdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.spdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.syft.json")).To(BeARegularFile())
+
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.cdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.spdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.syft.json")).To(BeARegularFile())
+
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.cdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.spdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.syft.json")).To(BeARegularFile())
+
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.cdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.spdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.syft.json")).To(BeARegularFile())
 		})
 
 		context("when using ca certs buildpack", func() {
