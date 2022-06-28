@@ -98,7 +98,7 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 
 			content, err := io.ReadAll(response.Body)
 			Expect(err).NotTo(HaveOccurred())
-			Expect(string(content)).To(ContainSubstring("<title>react_app</title>"))
+			Expect(string(content)).To(ContainSubstring("<title>source_app</title>"))
 
 			// check that all required SBOM files are present
 			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.cdx.json")).To(BeARegularFile())
@@ -242,7 +242,7 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
-				Eventually(container).Should(Serve((ContainSubstring("<title>react_app</title>"))))
+				Eventually(container).Should(Serve((ContainSubstring("<title>source_app</title>"))))
 
 				procfileContainer, err = docker.Container.Run.
 					WithEntrypoint("procfile").
