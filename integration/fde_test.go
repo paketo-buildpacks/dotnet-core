@@ -80,8 +80,6 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 				Execute(image.ID)
 			Expect(err).NotTo(HaveOccurred())
 
-			Eventually(container).Should(BeAvailable())
-
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
@@ -90,15 +88,7 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
 
-			response, err := http.Get(fmt.Sprintf("http://localhost:%s", container.HostPort("8080")))
-			Expect(err).NotTo(HaveOccurred())
-			defer response.Body.Close()
-
-			Expect(response.StatusCode).To(Equal(http.StatusOK))
-
-			content, err := io.ReadAll(response.Body)
-			Expect(err).NotTo(HaveOccurred())
-			Expect(string(content)).To(ContainSubstring("<title>source_app</title>"))
+			Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
 
 			// check that all required SBOM files are present
 			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.cdx.json")).To(BeARegularFile())
@@ -124,6 +114,10 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 			)
 			it.Before(func() {
 				var err error
+
+				// Remove source directory created in the it.Before
+				Expect(os.RemoveAll(source)).To(Succeed())
+
 				source, err = occam.Source(filepath.Join("testdata", "ca-cert-apps"))
 				Expect(err).NotTo(HaveOccurred())
 
@@ -242,7 +236,7 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
-				Eventually(container).Should(Serve((ContainSubstring("<title>source_app</title>"))))
+				Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
 
 				procfileContainer, err = docker.Container.Run.
 					WithEntrypoint("procfile").
@@ -255,6 +249,52 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 					return containerLogs.String()
 				}).Should(ContainSubstring("Procfile command"))
 			})
+		})
+	})
+
+	context("when building a .Net core 3.1 app that is an FDE", func() {
+		var (
+			image     occam.Image
+			container occam.Container
+
+			name   string
+			source string
+		)
+
+		it.Before(func() {
+			var err error
+			name, err = occam.RandomName()
+			Expect(err).NotTo(HaveOccurred())
+
+			source, err = occam.Source(filepath.Join("testdata", "fde-app-3-1"))
+			Expect(err).NotTo(HaveOccurred())
+		})
+
+		it.After(func() {
+			Expect(docker.Container.Remove.Execute(container.ID)).To(Succeed())
+			Expect(docker.Image.Remove.Execute(image.ID)).To(Succeed())
+			Expect(docker.Volume.Remove.Execute(occam.CacheVolumeNames(name))).To(Succeed())
+
+			Expect(os.RemoveAll(source)).To(Succeed())
+		})
+
+		it("creates a working OCI image", func() {
+			var err error
+			var logs fmt.Stringer
+			image, logs, err = pack.WithNoColor().Build.
+				WithBuildpacks(dotnetCoreBuildpack).
+				WithPullPolicy("never").
+				Execute(name, source)
+			Expect(err).NotTo(HaveOccurred(), logs.String())
+
+			container, err = docker.Container.Run.
+				WithEnv(map[string]string{"PORT": "8080"}).
+				WithPublish("8080").
+				WithPublishAll().
+				Execute(image.ID)
+			Expect(err).NotTo(HaveOccurred())
+
+			Eventually(container).Should(Serve(ContainSubstring("fde_app_3_1")).OnPort(8080))
 		})
 	})
 }
