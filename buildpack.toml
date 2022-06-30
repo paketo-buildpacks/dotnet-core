@@ -24,7 +24,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "2.5.0"
+    version = "2.5.1"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
@@ -82,7 +82,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "2.5.0"
+    version = "2.5.1"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
@@ -137,7 +137,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "2.5.0"
+    version = "2.5.1"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
