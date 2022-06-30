@@ -1,4 +1,4 @@
-api = "0.6"
+api = "0.8"
 
 [buildpack]
   description = "A language family buildpack for pulling in all buildpacks related to building .NET Core apps"
@@ -6,7 +6,6 @@ api = "0.6"
   id = "paketo-buildpacks/dotnet-core"
   keywords = ["dotnet"]
   name = "Paketo .NET Core Buildpack"
-  version = "{{.Version}}"
 
   [[buildpack.licenses]]
     type = "Apache-2.0"

@@ -31,7 +31,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 		docker = occam.NewDocker()
 	})
 
-	context("when building a .Net core source code app that uses react", func() {
+	context("when building a .Net core source code app that uses angular", func() {
 		var (
 			image     occam.Image
 			container occam.Container
@@ -80,8 +80,6 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 				Execute(image.ID)
 			Expect(err).NotTo(HaveOccurred())
 
-			Eventually(container).Should(BeAvailable())
-
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
 			Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
@@ -93,15 +91,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
 
-			response, err := http.Get(fmt.Sprintf("http://localhost:%s", container.HostPort("8080")))
-			Expect(err).NotTo(HaveOccurred())
-			defer response.Body.Close()
-
-			Expect(response.StatusCode).To(Equal(http.StatusOK))
-
-			content, err := io.ReadAll(response.Body)
-			Expect(err).NotTo(HaveOccurred())
-			Expect(string(content)).To(ContainSubstring("<title>react_app</title>"))
+			Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
 
 			// check that all required SBOM files are present
 			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.cdx.json")).To(BeARegularFile())
@@ -135,6 +125,10 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			)
 			it.Before(func() {
 				var err error
+
+				// Remove source directory created in the it.Before
+				Expect(os.RemoveAll(source)).To(Succeed())
+
 				source, err = occam.Source(filepath.Join("testdata", "ca-cert-apps"))
 				Expect(err).NotTo(HaveOccurred())
 
@@ -257,7 +251,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
-				Eventually(container).Should(Serve(ContainSubstring("<title>react_app</title>")))
+				Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
 
 				procfileContainer, err = docker.Container.Run.
 					WithEntrypoint("procfile").
