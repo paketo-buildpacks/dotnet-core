@@ -63,61 +63,67 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			Expect(os.RemoveAll(sbomDir)).To(Succeed())
 		})
 
-		it("creates a working OCI image", func() {
-			var err error
-			var logs fmt.Stringer
-			image, logs, err = pack.WithNoColor().Build.
-				WithBuildpacks(dotnetCoreBuildpack).
-				WithSBOMOutputDir(sbomDir).
-				WithPullPolicy("never").
-				Execute(name, source)
-			Expect(err).NotTo(HaveOccurred(), logs.String())
+		for _, b := range config.Builders {
+			builder := b
+			context(fmt.Sprintf("with %s", builder), func() {
+				it.Focus("creates a working OCI image", func() {
+					var err error
+					var logs fmt.Stringer
+					image, logs, err = pack.WithNoColor().Build.
+						WithBuildpacks(dotnetCoreBuildpack).
+						WithBuilder(builder).
+						WithSBOMOutputDir(sbomDir).
+						WithPullPolicy("never").
+						Execute(name, source)
+					Expect(err).NotTo(HaveOccurred(), logs.String())
 
-			container, err = docker.Container.Run.
-				WithEnv(map[string]string{"PORT": "8080"}).
-				WithPublish("8080").
-				WithPublishAll().
-				Execute(image.ID)
-			Expect(err).NotTo(HaveOccurred())
+					container, err = docker.Container.Run.
+						WithEnv(map[string]string{"PORT": "8080"}).
+						WithPublish("8080").
+						WithPublishAll().
+						Execute(image.ID)
+					Expect(err).NotTo(HaveOccurred())
 
-			Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("Node Engine Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring("Node Engine Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
 
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
+					Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
+					Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
 
-			Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
+					Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
 
-			// check that all required SBOM files are present
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.syft.json")).To(BeARegularFile())
+					// check that all required SBOM files are present
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.cdx.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.spdx.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.syft.json")).To(BeARegularFile())
 
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.syft.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.cdx.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.spdx.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.syft.json")).To(BeARegularFile())
 
-			Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.syft.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.cdx.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.spdx.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.syft.json")).To(BeARegularFile())
 
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.syft.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.cdx.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.spdx.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.syft.json")).To(BeARegularFile())
 
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.syft.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.cdx.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.spdx.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.syft.json")).To(BeARegularFile())
 
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.syft.json")).To(BeARegularFile())
-		})
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.cdx.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.spdx.json")).To(BeARegularFile())
+					Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.syft.json")).To(BeARegularFile())
+				})
+			})
+		}
 
 		context("when using ca certs buildpack", func() {
 			var (
