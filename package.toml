@@ -24,7 +24,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@0.7.4"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.1.2"
+  uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.2.0"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/environment-variables@4.1.2"
