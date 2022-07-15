@@ -1,2 +1,6 @@
 /.bin
 /build
+integration/testdata/transitive-project-reference/**/bin
+integration/testdata/transitive-project-reference/**/obj
+integration/testdata/source-app/**/bin
+integration/testdata/source-app/**/obj

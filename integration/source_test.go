@@ -31,7 +31,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 		docker = occam.NewDocker()
 	})
 
-	context("when building a .Net core source code app that uses angular", func() {
+	context("when building from source", func() {
 		var (
 			image     occam.Image
 			container occam.Container
@@ -44,9 +44,6 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 		it.Before(func() {
 			var err error
 			name, err = occam.RandomName()
-			Expect(err).NotTo(HaveOccurred())
-
-			source, err = occam.Source(filepath.Join("testdata", "source-app"))
 			Expect(err).NotTo(HaveOccurred())
 
 			sbomDir, err = os.MkdirTemp("", "sbom")
@@ -63,186 +60,28 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			Expect(os.RemoveAll(sbomDir)).To(Succeed())
 		})
 
-		it("creates a working OCI image", func() {
-			var err error
-			var logs fmt.Stringer
-			image, logs, err = pack.WithNoColor().Build.
-				WithBuildpacks(dotnetCoreBuildpack).
-				WithSBOMOutputDir(sbomDir).
-				WithPullPolicy("never").
-				Execute(name, source)
-			Expect(err).NotTo(HaveOccurred(), logs.String())
-
-			container, err = docker.Container.Run.
-				WithEnv(map[string]string{"PORT": "8080"}).
-				WithPublish("8080").
-				WithPublishAll().
-				Execute(image.ID)
-			Expect(err).NotTo(HaveOccurred())
-
-			Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring("Node Engine Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
-
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
-
-			Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
-
-			// check that all required SBOM files are present
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.syft.json")).To(BeARegularFile())
-
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.syft.json")).To(BeARegularFile())
-
-			Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.syft.json")).To(BeARegularFile())
-
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.syft.json")).To(BeARegularFile())
-
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.syft.json")).To(BeARegularFile())
-
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.syft.json")).To(BeARegularFile())
-		})
-
-		context("when using ca certs buildpack", func() {
-			var (
-				client *http.Client
-			)
+		context("when building a .Net core source code app that uses angular", func() {
 			it.Before(func() {
 				var err error
-
-				// Remove source directory created in the it.Before
-				Expect(os.RemoveAll(source)).To(Succeed())
-
-				source, err = occam.Source(filepath.Join("testdata", "ca-cert-apps"))
+				source, err = occam.Source(filepath.Join("testdata", "source-app"))
 				Expect(err).NotTo(HaveOccurred())
-
-				caCert, err := os.ReadFile(filepath.Join(source, "client-certs", "ca.pem"))
-				Expect(err).ToNot(HaveOccurred())
-
-				caCertPool := x509.NewCertPool()
-				caCertPool.AppendCertsFromPEM(caCert)
-
-				cert, err := tls.LoadX509KeyPair(filepath.Join(source, "client-certs", "cert.pem"), filepath.Join(source, "client-certs", "key.pem"))
-				Expect(err).ToNot(HaveOccurred())
-
-				client = &http.Client{
-					Transport: &http.Transport{
-						TLSClientConfig: &tls.Config{
-							RootCAs:      caCertPool,
-							Certificates: []tls.Certificate{cert},
-							MinVersion:   tls.VersionTLS12,
-						},
-					},
-				}
-			})
-
-			it("builds a working OCI image and uses a client-side CA cert for requests", func() {
-				var err error
-				var logs fmt.Stringer
-				image, logs, err = pack.WithNoColor().Build.
-					WithBuildpacks(dotnetCoreBuildpack).
-					WithPullPolicy("never").
-					Execute(name, filepath.Join(source, "source-app"))
-				Expect(err).NotTo(HaveOccurred(), logs.String())
-
-				Expect(logs).To(ContainLines(ContainSubstring("CA Certificates Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
-
-				container, err = docker.Container.Run.
-					WithPublish("8080").
-					WithEnv(map[string]string{
-						"SERVICE_BINDING_ROOT": "/bindings",
-					}).
-					WithVolumes(fmt.Sprintf("%s:/bindings/ca-certificates", filepath.Join(source, "binding"))).
-					Execute(image.ID)
-				Expect(err).NotTo(HaveOccurred())
-
-				Eventually(func() string {
-					cLogs, err := docker.Container.Logs.Execute(container.ID)
-					Expect(err).NotTo(HaveOccurred())
-					return cLogs.String()
-				}).Should(
-					ContainSubstring("Added 1 additional CA certificate(s) to system truststore"),
-				)
-
-				request, err := http.NewRequest("GET", fmt.Sprintf("https://localhost:%s", container.HostPort("8080")), nil)
-				Expect(err).NotTo(HaveOccurred())
-
-				var response *http.Response
-				Eventually(func() error {
-					var err error
-					response, err = client.Do(request)
-					return err
-				}).Should(BeNil())
-				defer response.Body.Close()
-
-				Expect(response.StatusCode).To(Equal(http.StatusOK))
-
-				content, err := io.ReadAll(response.Body)
-				Expect(err).NotTo(HaveOccurred())
-				Expect(string(content)).To(ContainSubstring("Hello World!"))
-			})
-		})
-
-		context("when using optional utility buildpacks", func() {
-			var procfileContainer occam.Container
-			it.Before(func() {
-				Expect(os.WriteFile(filepath.Join(source, "Procfile"), []byte("procfile: echo Procfile command"), 0644)).To(Succeed())
 			})
 
 			it.After(func() {
-				Expect(docker.Container.Remove.Execute(procfileContainer.ID)).To(Succeed())
+				Expect(os.RemoveAll(source)).To(Succeed())
 			})
 
-			it("builds a working OCI image and run the app with the start command from the Procfile and other utility buildpacks", func() {
-				var err error
-				var logs fmt.Stringer
+			it("creates a working OCI image", func() {
+				var (
+					err  error
+					logs fmt.Stringer
+				)
 				image, logs, err = pack.WithNoColor().Build.
 					WithBuildpacks(dotnetCoreBuildpack).
+					WithSBOMOutputDir(sbomDir).
 					WithPullPolicy("never").
-					WithEnv(map[string]string{
-						"BPE_SOME_VARIABLE":      "some-value",
-						"BP_IMAGE_LABELS":        "some-label=some-value",
-						"BP_LIVE_RELOAD_ENABLED": "true",
-					}).
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
-
-				Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Node Engine Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Environment Variables Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Image Labels Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Watchexec Buildpack")))
-
-				Expect(image.Buildpacks[10].Key).To(Equal("paketo-buildpacks/environment-variables"))
-				Expect(image.Buildpacks[10].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
-				Expect(image.Labels["some-label"]).To(Equal("some-value"))
 
 				container, err = docker.Container.Run.
 					WithEnv(map[string]string{"PORT": "8080"}).
@@ -251,19 +90,241 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Node Engine Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
+
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
+
 				Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
 
-				procfileContainer, err = docker.Container.Run.
-					WithEntrypoint("procfile").
+				// check that all required SBOM files are present
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.cdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.spdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.syft.json")).To(BeARegularFile())
+
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.cdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.spdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.syft.json")).To(BeARegularFile())
+
+				Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.cdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.spdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.syft.json")).To(BeARegularFile())
+
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.cdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.spdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.syft.json")).To(BeARegularFile())
+
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.cdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.spdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.syft.json")).To(BeARegularFile())
+
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.cdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.spdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.syft.json")).To(BeARegularFile())
+			})
+
+			context("when using ca certs buildpack", func() {
+				var (
+					client *http.Client
+				)
+				it.Before(func() {
+					var err error
+
+					// Remove source directory created in the it.Before
+					Expect(os.RemoveAll(source)).To(Succeed())
+
+					source, err = occam.Source(filepath.Join("testdata", "ca-cert-apps"))
+					Expect(err).NotTo(HaveOccurred())
+
+					caCert, err := os.ReadFile(filepath.Join(source, "client-certs", "ca.pem"))
+					Expect(err).ToNot(HaveOccurred())
+
+					caCertPool := x509.NewCertPool()
+					caCertPool.AppendCertsFromPEM(caCert)
+
+					cert, err := tls.LoadX509KeyPair(filepath.Join(source, "client-certs", "cert.pem"), filepath.Join(source, "client-certs", "key.pem"))
+					Expect(err).ToNot(HaveOccurred())
+
+					client = &http.Client{
+						Transport: &http.Transport{
+							TLSClientConfig: &tls.Config{
+								RootCAs:      caCertPool,
+								Certificates: []tls.Certificate{cert},
+								MinVersion:   tls.VersionTLS12,
+							},
+						},
+					}
+				})
+
+				it("builds a working OCI image and uses a client-side CA cert for requests", func() {
+					var err error
+					var logs fmt.Stringer
+					image, logs, err = pack.WithNoColor().Build.
+						WithBuildpacks(dotnetCoreBuildpack).
+						WithPullPolicy("never").
+						Execute(name, filepath.Join(source, "source-app"))
+					Expect(err).NotTo(HaveOccurred(), logs.String())
+
+					Expect(logs).To(ContainLines(ContainSubstring("CA Certificates Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
+
+					container, err = docker.Container.Run.
+						WithPublish("8080").
+						WithEnv(map[string]string{
+							"SERVICE_BINDING_ROOT": "/bindings",
+						}).
+						WithVolumes(fmt.Sprintf("%s:/bindings/ca-certificates", filepath.Join(source, "binding"))).
+						Execute(image.ID)
+					Expect(err).NotTo(HaveOccurred())
+
+					Eventually(func() string {
+						cLogs, err := docker.Container.Logs.Execute(container.ID)
+						Expect(err).NotTo(HaveOccurred())
+						return cLogs.String()
+					}).Should(
+						ContainSubstring("Added 1 additional CA certificate(s) to system truststore"),
+					)
+
+					request, err := http.NewRequest("GET", fmt.Sprintf("https://localhost:%s", container.HostPort("8080")), nil)
+					Expect(err).NotTo(HaveOccurred())
+
+					var response *http.Response
+					Eventually(func() error {
+						var err error
+						response, err = client.Do(request)
+						return err
+					}).Should(BeNil())
+					defer response.Body.Close()
+
+					Expect(response.StatusCode).To(Equal(http.StatusOK))
+
+					content, err := io.ReadAll(response.Body)
+					Expect(err).NotTo(HaveOccurred())
+					Expect(string(content)).To(ContainSubstring("Hello World!"))
+				})
+			})
+
+			context("when using optional utility buildpacks", func() {
+				var procfileContainer occam.Container
+				it.Before(func() {
+					Expect(os.WriteFile(filepath.Join(source, "Procfile"), []byte("procfile: echo Procfile command"), 0644)).To(Succeed())
+				})
+
+				it.After(func() {
+					Expect(docker.Container.Remove.Execute(procfileContainer.ID)).To(Succeed())
+				})
+
+				it("builds a working OCI image and run the app with the start command from the Procfile and other utility buildpacks", func() {
+					var err error
+					var logs fmt.Stringer
+					image, logs, err = pack.WithNoColor().Build.
+						WithBuildpacks(dotnetCoreBuildpack).
+						WithPullPolicy("never").
+						WithEnv(map[string]string{
+							"BPE_SOME_VARIABLE":      "some-value",
+							"BP_IMAGE_LABELS":        "some-label=some-value",
+							"BP_LIVE_RELOAD_ENABLED": "true",
+						}).
+						Execute(name, source)
+					Expect(err).NotTo(HaveOccurred(), logs.String())
+
+					Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring("Node Engine Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring("Environment Variables Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring("Image Labels Buildpack")))
+					Expect(logs).To(ContainLines(ContainSubstring("Watchexec Buildpack")))
+
+					Expect(image.Buildpacks[10].Key).To(Equal("paketo-buildpacks/environment-variables"))
+					Expect(image.Buildpacks[10].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
+					Expect(image.Labels["some-label"]).To(Equal("some-value"))
+
+					container, err = docker.Container.Run.
+						WithEnv(map[string]string{"PORT": "8080"}).
+						WithPublish("8080").
+						WithPublishAll().
+						Execute(image.ID)
+					Expect(err).NotTo(HaveOccurred())
+
+					Eventually(container).Should(BeAvailable())
+					Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
+
+					procfileContainer, err = docker.Container.Run.
+						WithEntrypoint("procfile").
+						Execute(image.ID)
+					Expect(err).NotTo(HaveOccurred())
+
+					Eventually(func() string {
+						containerLogs, err := docker.Container.Logs.Execute(procfileContainer.ID)
+						Expect(err).NotTo(HaveOccurred())
+						return containerLogs.String()
+					}).Should(ContainSubstring("Procfile command"))
+				})
+			})
+		})
+
+		context("when building an app with multiple project files that depend on each other", func() {
+			it.Before(func() {
+				var err error
+				source, err = occam.Source(filepath.Join("testdata", "transitive-project-reference"))
+				Expect(err).NotTo(HaveOccurred())
+			})
+
+			it.After(func() {
+				Expect(os.RemoveAll(source)).To(Succeed())
+			})
+
+			it("resolves the transitive dependencies and builds correctly", func() {
+				var (
+					err  error
+					logs fmt.Stringer
+				)
+				image, logs, err = pack.WithNoColor().Build.
+					WithBuildpacks(dotnetCoreBuildpack).
+					WithSBOMOutputDir(sbomDir).
+					WithPullPolicy("never").
+					WithEnv(map[string]string{
+						"BP_DOTNET_PROJECT_PATH": "./src/WebApi",
+					}).
+					Execute(name, source)
+				Expect(err).NotTo(HaveOccurred(), logs.String())
+
+				container, err = docker.Container.Run.
+					WithEnv(map[string]string{"PORT": "8080"}).
+					WithPublish("8080").
+					WithPublishAll().
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
-				Eventually(func() string {
-					containerLogs, err := docker.Container.Logs.Execute(procfileContainer.ID)
-					Expect(err).NotTo(HaveOccurred())
-					return containerLogs.String()
-				}).Should(ContainSubstring("Procfile command"))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
+
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
+
+				Eventually(container).Should(BeAvailable())
+				Eventually(container).Should(Serve(ContainSubstring("Chilly")).OnPort(8080).WithEndpoint("/weatherforecast"))
 			})
 		})
 	})
+
 }
