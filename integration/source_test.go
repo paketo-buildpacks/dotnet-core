@@ -31,7 +31,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 		docker = occam.NewDocker()
 	})
 
-	context("when building a .Net core source code app that uses angular", func() {
+	context("when building from source", func() {
 		var (
 			image     occam.Image
 			container occam.Container
@@ -44,9 +44,6 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 		it.Before(func() {
 			var err error
 			name, err = occam.RandomName()
-			Expect(err).NotTo(HaveOccurred())
-
-			source, err = occam.Source(filepath.Join("testdata", "source-app"))
 			Expect(err).NotTo(HaveOccurred())
 
 			sbomDir, err = os.MkdirTemp("", "sbom")
@@ -66,7 +63,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 		for _, b := range config.Builders {
 			builder := b
 			context(fmt.Sprintf("with %s", builder), func() {
-				it.Focus("creates a working OCI image", func() {
+				it("creates a working OCI image", func() {
 					var err error
 					var logs fmt.Stringer
 					image, logs, err = pack.WithNoColor().Build.
@@ -257,6 +254,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
+				Eventually(container).Should(BeAvailable())
 				Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
 
 				procfileContainer, err = docker.Container.Run.
@@ -271,5 +269,54 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 				}).Should(ContainSubstring("Procfile command"))
 			})
 		})
+
+		context("when building an app with multiple project files that depend on each other", func() {
+			it.Before(func() {
+				var err error
+				source, err = occam.Source(filepath.Join("testdata", "transitive-project-reference"))
+				Expect(err).NotTo(HaveOccurred())
+			})
+
+			it.After(func() {
+				Expect(os.RemoveAll(source)).To(Succeed())
+			})
+
+			it("resolves the transitive dependencies and builds correctly", func() {
+				var (
+					err  error
+					logs fmt.Stringer
+				)
+				image, logs, err = pack.WithNoColor().Build.
+					WithBuildpacks(dotnetCoreBuildpack).
+					WithSBOMOutputDir(sbomDir).
+					WithPullPolicy("never").
+					WithEnv(map[string]string{
+						"BP_DOTNET_PROJECT_PATH": "./src/WebApi",
+					}).
+					Execute(name, source)
+				Expect(err).NotTo(HaveOccurred(), logs.String())
+
+				container, err = docker.Container.Run.
+					WithEnv(map[string]string{"PORT": "8080"}).
+					WithPublish("8080").
+					WithPublishAll().
+					Execute(image.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
+
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
+
+				Eventually(container).Should(BeAvailable())
+				Eventually(container).Should(Serve(ContainSubstring("Chilly")).OnPort(8080).WithEndpoint("/weatherforecast"))
+			})
+		})
 	})
+
 }
