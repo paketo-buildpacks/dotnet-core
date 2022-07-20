@@ -46,6 +46,9 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			name, err = occam.RandomName()
 			Expect(err).NotTo(HaveOccurred())
 
+			source, err = occam.Source(filepath.Join("testdata", "source-app"))
+			Expect(err).NotTo(HaveOccurred())
+
 			sbomDir, err = os.MkdirTemp("", "sbom")
 			Expect(err).NotTo(HaveOccurred())
 			Expect(os.Chmod(sbomDir, os.ModePerm)).To(Succeed())
@@ -318,5 +321,4 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			})
 		})
 	})
-
 }
