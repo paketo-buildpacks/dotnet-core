@@ -1,33 +1,39 @@
 package integration_test
 
 import (
+	"bytes"
 	"encoding/json"
-	"os"
 	"os/exec"
 	"path/filepath"
 	"testing"
 	"time"
 
+	"github.com/paketo-buildpacks/packit/v2/pexec"
 	"github.com/sclevine/spec"
 	"github.com/sclevine/spec/report"
 
 	. "github.com/onsi/gomega"
 )
 
-var dotnetCoreBuildpack string
-
-var config struct {
-	Builders []string `json:"builders"`
-}
+var (
+	dotnetCoreBuildpack string
+	builder             struct {
+		Local struct {
+			Stack struct {
+				ID string `json:"id"`
+			} `json:"stack"`
+		} `json:"local_info"`
+	}
+	buildpackInfo struct {
+		Buildpack struct {
+			ID   string
+			Name string
+		}
+	}
+)
 
 func TestIntegration(t *testing.T) {
 	Expect := NewWithT(t).Expect
-
-	file, err := os.Open("../integration.json")
-	Expect(err).NotTo(HaveOccurred())
-
-	Expect(json.NewDecoder(file).Decode(&config)).To(Succeed())
-	Expect(file.Close()).To(Succeed())
 
 	output, err := exec.Command("bash", "-c", "../scripts/package.sh --version 1.2.3").CombinedOutput()
 	Expect(err).NotTo(HaveOccurred(), string(output))
@@ -36,6 +42,16 @@ func TestIntegration(t *testing.T) {
 	Expect(err).NotTo(HaveOccurred())
 
 	SetDefaultEventuallyTimeout(10 * time.Second)
+
+	buf := bytes.NewBuffer(nil)
+	cmd := pexec.NewExecutable("pack")
+	Expect(cmd.Execute(pexec.Execution{
+		Args:   []string{"builder", "inspect", "--output", "json"},
+		Stdout: buf,
+		Stderr: buf,
+	})).To(Succeed(), buf.String())
+
+	Expect(json.Unmarshal(buf.Bytes(), &builder)).To(Succeed(), buf.String())
 
 	suite := spec.New("Integration", spec.Parallel(), spec.Report(report.Terminal{}))
 	suite("TestFDD", testFDD)

@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/paketo-buildpacks/occam"
@@ -252,49 +253,51 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 		})
 	})
 
-	context("when building a .Net core 3.1 app that is an FDE", func() {
-		var (
-			image     occam.Image
-			container occam.Container
+	if !strings.Contains(builder.Local.Stack.ID, "jammy") {
+		context("when building a .Net core 3.1 app that is an FDE", func() {
+			var (
+				image     occam.Image
+				container occam.Container
 
-			name   string
-			source string
-		)
+				name   string
+				source string
+			)
 
-		it.Before(func() {
-			var err error
-			name, err = occam.RandomName()
-			Expect(err).NotTo(HaveOccurred())
+			it.Before(func() {
+				var err error
+				name, err = occam.RandomName()
+				Expect(err).NotTo(HaveOccurred())
 
-			source, err = occam.Source(filepath.Join("testdata", "fde-app-3-1"))
-			Expect(err).NotTo(HaveOccurred())
+				source, err = occam.Source(filepath.Join("testdata", "fde-app-3-1"))
+				Expect(err).NotTo(HaveOccurred())
+			})
+
+			it.After(func() {
+				Expect(docker.Container.Remove.Execute(container.ID)).To(Succeed())
+				Expect(docker.Image.Remove.Execute(image.ID)).To(Succeed())
+				Expect(docker.Volume.Remove.Execute(occam.CacheVolumeNames(name))).To(Succeed())
+
+				Expect(os.RemoveAll(source)).To(Succeed())
+			})
+
+			it("creates a working OCI image", func() {
+				var err error
+				var logs fmt.Stringer
+				image, logs, err = pack.WithNoColor().Build.
+					WithBuildpacks(dotnetCoreBuildpack).
+					WithPullPolicy("never").
+					Execute(name, source)
+				Expect(err).NotTo(HaveOccurred(), logs.String())
+
+				container, err = docker.Container.Run.
+					WithEnv(map[string]string{"PORT": "8080"}).
+					WithPublish("8080").
+					WithPublishAll().
+					Execute(image.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				Eventually(container).Should(Serve(ContainSubstring("fde_app_3_1")).OnPort(8080))
+			})
 		})
-
-		it.After(func() {
-			Expect(docker.Container.Remove.Execute(container.ID)).To(Succeed())
-			Expect(docker.Image.Remove.Execute(image.ID)).To(Succeed())
-			Expect(docker.Volume.Remove.Execute(occam.CacheVolumeNames(name))).To(Succeed())
-
-			Expect(os.RemoveAll(source)).To(Succeed())
-		})
-
-		it("creates a working OCI image", func() {
-			var err error
-			var logs fmt.Stringer
-			image, logs, err = pack.WithNoColor().Build.
-				WithBuildpacks(dotnetCoreBuildpack).
-				WithPullPolicy("never").
-				Execute(name, source)
-			Expect(err).NotTo(HaveOccurred(), logs.String())
-
-			container, err = docker.Container.Run.
-				WithEnv(map[string]string{"PORT": "8080"}).
-				WithPublish("8080").
-				WithPublishAll().
-				Execute(image.ID)
-			Expect(err).NotTo(HaveOccurred())
-
-			Eventually(container).Should(Serve(ContainSubstring("fde_app_3_1")).OnPort(8080))
-		})
-	})
+	}
 }
