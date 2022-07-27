@@ -24,12 +24,6 @@ var (
 			} `json:"stack"`
 		} `json:"local_info"`
 	}
-	buildpackInfo struct {
-		Buildpack struct {
-			ID   string
-			Name string
-		}
-	}
 )
 
 func TestIntegration(t *testing.T) {
