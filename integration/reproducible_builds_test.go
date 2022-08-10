@@ -172,7 +172,7 @@ func testReproducibleBuilds(t *testing.T, context spec.G, it spec.S) {
 		})
 	})
 
-	context.Focus("when building from source", func() {
+	context("when building from source", func() {
 		var (
 			image occam.Image
 
