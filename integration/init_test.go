@@ -48,9 +48,10 @@ func TestIntegration(t *testing.T) {
 	Expect(json.Unmarshal(buf.Bytes(), &builder)).To(Succeed(), buf.String())
 
 	suite := spec.New("Integration", spec.Parallel(), spec.Report(report.Terminal{}))
-	suite("TestFDD", testFDD)
-	suite("TestFDE", testFDE)
-	suite("TestSelfContained", testSelfContained)
-	suite("TestSource", testSource)
+	suite("FDD", testFDD)
+	suite("FDE", testFDE)
+	suite("SelfContained", testSelfContained)
+	suite("Source", testSource)
+	suite("ReproducibleBuilds", testReproducibleBuilds)
 	suite.Run(t)
 }
