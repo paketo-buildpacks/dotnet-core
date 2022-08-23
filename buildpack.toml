@@ -51,11 +51,11 @@ api = "0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
-    version = "0.9.0"
+    version = "0.9.1"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.11.0"
+    version = "0.11.1"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
@@ -110,7 +110,7 @@ api = "0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.11.0"
+    version = "0.11.1"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
@@ -151,7 +151,7 @@ api = "0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.11.0"
+    version = "0.11.1"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
