@@ -27,6 +27,11 @@ api = "0.8"
     version = "2.6.0"
 
   [[order.group]]
+    id = "paketo-buildpacks/vsdbg"
+    optional = true
+    version = "0.0.1"
+
+  [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
     version = "0.10.2"
 
@@ -85,6 +90,11 @@ api = "0.8"
     version = "2.6.0"
 
   [[order.group]]
+    id = "paketo-buildpacks/vsdbg"
+    optional = true
+    version = "0.0.1"
+
+  [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
     version = "0.10.2"
 
@@ -138,6 +148,11 @@ api = "0.8"
     id = "paketo-buildpacks/watchexec"
     optional = true
     version = "2.6.0"
+
+  [[order.group]]
+    id = "paketo-buildpacks/vsdbg"
+    optional = true
+    version = "0.0.1"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"

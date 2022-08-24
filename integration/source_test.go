@@ -314,5 +314,60 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 				Eventually(container).Should(Serve(ContainSubstring("Chilly")).OnPort(8080).WithEndpoint("/weatherforecast"))
 			})
 		})
+
+		context("when remote debugging is enabled", func() {
+			var vsdbgContainer occam.Container
+			it.After(func() {
+				Expect(docker.Container.Remove.Execute(vsdbgContainer.ID)).To(Succeed())
+			})
+
+			it("sets up an image for remote debugging with vsdbg", func() {
+				var (
+					err  error
+					logs fmt.Stringer
+				)
+				image, logs, err = pack.WithNoColor().Build.
+					WithBuildpacks(dotnetCoreBuildpack).
+					WithSBOMOutputDir(sbomDir).
+					WithPullPolicy("never").
+					WithEnv(map[string]string{
+						"BP_DEBUG_ENABLED": "true",
+					}).
+					Execute(name, source)
+				Expect(err).NotTo(HaveOccurred(), logs.String())
+
+				container, err = docker.Container.Run.
+					WithEnv(map[string]string{"PORT": "8080"}).
+					WithPublish("8080").
+					WithPublishAll().
+					Execute(image.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
+
+				vsdbgContainer, err = docker.Container.Run.
+					WithEntrypoint("launcher").
+					WithCommand("vsdbg --help").
+					Execute(image.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				Eventually(func() string {
+					cLogs, err := docker.Container.Logs.Execute(vsdbgContainer.ID)
+					Expect(err).NotTo(HaveOccurred())
+					return cLogs.String()
+				}).Should(ContainSubstring(`Microsoft .NET Core Debugger (vsdbg)`))
+
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Core Runtime Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ASP.NET Core Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Core SDK Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Publish Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Visual Studio Debugger")))
+
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
+			})
+		})
 	})
 }
