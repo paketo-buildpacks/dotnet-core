@@ -7,7 +7,7 @@ require (
 	github.com/containerd/containerd v1.6.8 // indirect
 	github.com/moby/sys/mount v0.3.3 // indirect
 	github.com/moby/term v0.0.0-20220808134915-39b0c02b01ae // indirect
-	github.com/onsi/gomega v1.20.0
+	github.com/onsi/gomega v1.20.1
 	github.com/opencontainers/runc v1.1.3 // indirect
 	github.com/paketo-buildpacks/occam v0.12.1
 	github.com/paketo-buildpacks/packit/v2 v2.4.2
