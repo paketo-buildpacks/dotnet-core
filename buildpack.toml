@@ -5,7 +5,7 @@ api = "0.8"
   homepage = "https://github.com/paketo-buildpacks/dotnet-core"
   id = "paketo-buildpacks/dotnet-core"
   keywords = ["dotnet"]
-  name = "Paketo .NET Core Buildpack"
+  name = "Paketo Buildpack for .NET Core"
 
   [[buildpack.licenses]]
     type = "Apache-2.0"
