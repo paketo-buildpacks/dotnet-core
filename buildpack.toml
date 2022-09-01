@@ -33,21 +33,21 @@ api = "0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.10.2"
+    version = "0.10.3"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
     optional = true
-    version = "0.9.2"
+    version = "0.9.3"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
-    version = "0.9.2"
+    version = "0.9.3"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.4.0"
+    version = "0.4.1"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
@@ -56,11 +56,11 @@ api = "0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
-    version = "0.9.1"
+    version = "0.9.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.11.1"
+    version = "0.11.2"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
@@ -96,22 +96,22 @@ api = "0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.10.2"
+    version = "0.10.3"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
     optional = true
-    version = "0.9.2"
+    version = "0.9.3"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
     optional = true
-    version = "0.9.2"
+    version = "0.9.3"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.4.0"
+    version = "0.4.1"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
@@ -120,7 +120,7 @@ api = "0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.11.1"
+    version = "0.11.2"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
@@ -157,7 +157,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.4.0"
+    version = "0.4.1"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
@@ -166,7 +166,7 @@ api = "0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.11.1"
+    version = "0.11.2"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
