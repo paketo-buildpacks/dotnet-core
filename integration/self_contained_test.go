@@ -80,11 +80,11 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 				Execute(image.ID)
 			Expect(err).NotTo(HaveOccurred())
 
-			Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
-			Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
+			Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ICU")))
+			Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Execute")))
 
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Environment Variables Buildpack")))
-			Expect(logs).NotTo(ContainLines(ContainSubstring("Image Labels Buildpack")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Environment Variables")))
+			Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Image Labels")))
 
 			Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
 
@@ -140,9 +140,9 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 					Execute(name, filepath.Join(source, "self-contained-app"))
 				Expect(err).NotTo(HaveOccurred(), logs.String())
 
-				Expect(logs).To(ContainLines(ContainSubstring("CA Certificates Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for CA Certificates")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ICU")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Execute")))
 
 				container, err = docker.Container.Run.
 					WithPublish("8080").
@@ -204,11 +204,11 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
 
-				Expect(logs).To(ContainLines(ContainSubstring("ICU Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring(".NET Execute Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Procfile Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Environment Variables Buildpack")))
-				Expect(logs).To(ContainLines(ContainSubstring("Image Labels Buildpack")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ICU")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Execute")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Procfile")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Environment Variables")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Image Labels")))
 				Expect(logs).To(ContainLines(ContainSubstring("Watchexec Buildpack")))
 
 				Expect(image.Buildpacks[5].Key).To(Equal("paketo-buildpacks/environment-variables"))
