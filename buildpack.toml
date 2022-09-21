@@ -24,7 +24,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "2.6.0"
+    version = "2.7.0"
 
   [[order.group]]
     id = "paketo-buildpacks/vsdbg"
@@ -87,7 +87,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "2.6.0"
+    version = "2.7.0"
 
   [[order.group]]
     id = "paketo-buildpacks/vsdbg"
@@ -147,7 +147,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "2.6.0"
+    version = "2.7.0"
 
   [[order.group]]
     id = "paketo-buildpacks/vsdbg"
