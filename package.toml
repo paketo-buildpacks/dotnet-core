@@ -39,4 +39,4 @@
   uri = "urn:cnb:registry:paketo-buildpacks/watchexec@2.7.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/vsdbg@0.0.3"
+  uri = "urn:cnb:registry:paketo-buildpacks/vsdbg@0.0.4"
