@@ -29,16 +29,16 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/vsdbg"
     optional = true
-    version = "0.0.5"
+    version = "0.0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.10.7"
+    version = "0.10.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
     optional = true
-    version = "0.9.8"
+    version = "0.9.9"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
@@ -47,16 +47,16 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.4.4"
+    version = "0.4.5"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
     optional = true
-    version = "0.17.1"
+    version = "0.18.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
-    version = "0.9.5"
+    version = "0.9.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
@@ -92,16 +92,16 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/vsdbg"
     optional = true
-    version = "0.0.5"
+    version = "0.0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.10.7"
+    version = "0.10.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet"
     optional = true
-    version = "0.9.8"
+    version = "0.9.9"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
@@ -111,12 +111,12 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.4.4"
+    version = "0.4.5"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
     optional = true
-    version = "0.17.1"
+    version = "0.18.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
@@ -152,17 +152,17 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/vsdbg"
     optional = true
-    version = "0.0.5"
+    version = "0.0.6"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.4.4"
+    version = "0.4.5"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
     optional = true
-    version = "0.17.1"
+    version = "0.18.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
