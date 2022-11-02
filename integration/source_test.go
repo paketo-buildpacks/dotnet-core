@@ -80,12 +80,11 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 				Execute(image.ID)
 			Expect(err).NotTo(HaveOccurred())
 
-			Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core Runtime")))
-			Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core")))
 			Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core SDK")))
 			Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ICU")))
 			Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Node Engine")))
 			Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Publish")))
+			Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core Runtime")))
 			Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Execute")))
 
 			Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Environment Variables")))
@@ -94,13 +93,9 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			Eventually(container).Should(Serve(ContainSubstring("<title>source_app</title>")).OnPort(8080))
 
 			// check that all required SBOM files are present
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-runtime", "dotnet-core-runtime", "sbom.syft.json")).To(BeARegularFile())
-
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet", "dotnet-core-aspnet", "sbom.syft.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet-runtime", "dotnet-core-aspnet-runtime", "sbom.cdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet-runtime", "dotnet-core-aspnet-runtime", "sbom.spdx.json")).To(BeARegularFile())
+			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-core-aspnet-runtime", "dotnet-core-aspnet-runtime", "sbom.syft.json")).To(BeARegularFile())
 
 			Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.cdx.json")).To(BeARegularFile())
 			Expect(filepath.Join(sbomDir, "sbom", "build", "paketo-buildpacks_dotnet-core-sdk", "dotnet-core-sdk", "sbom.spdx.json")).To(BeARegularFile())
@@ -162,11 +157,10 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 				Expect(err).NotTo(HaveOccurred(), logs.String())
 
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for CA Certificates")))
-				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core Runtime")))
-				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core SDK")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ICU")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Publish")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core Runtime")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Execute")))
 
 				container, err = docker.Container.Run.
@@ -229,19 +223,19 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
 
-				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core Runtime")))
-				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core SDK")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ICU")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Publish")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core Runtime")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Execute")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Procfile")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Environment Variables")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Image Labels")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Watchexec")))
 
-				Expect(image.Buildpacks[10].Key).To(Equal("paketo-buildpacks/environment-variables"))
-				Expect(image.Buildpacks[10].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
+				envVar, err := image.BuildpackForKey("paketo-buildpacks/environment-variables")
+				Expect(err).NotTo(HaveOccurred())
+				Expect(envVar.Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
 				Expect(image.Labels["some-label"]).To(Equal("some-value"))
 
 				container, err = docker.Container.Run.
@@ -300,11 +294,10 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
-				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core Runtime")))
-				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core SDK")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ICU")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Publish")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core Runtime")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Execute")))
 
 				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Environment Variables")))
@@ -357,11 +350,10 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 					return cLogs.String()
 				}).Should(ContainSubstring(`Microsoft .NET Core Debugger (vsdbg)`))
 
-				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core Runtime")))
-				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core SDK")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ICU")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Publish")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core Runtime")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Execute")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Visual Studio Debugger")))
 

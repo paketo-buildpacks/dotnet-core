@@ -211,8 +211,9 @@ func testSelfContained(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Image Labels")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Watchexec")))
 
-				Expect(image.Buildpacks[5].Key).To(Equal("paketo-buildpacks/environment-variables"))
-				Expect(image.Buildpacks[5].Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
+				envVar, err := image.BuildpackForKey("paketo-buildpacks/environment-variables")
+				Expect(err).NotTo(HaveOccurred())
+				Expect(envVar.Layers["environment-variables"].Metadata["variables"]).To(Equal(map[string]interface{}{"SOME_VARIABLE": "some-value"}))
 				Expect(image.Labels["some-label"]).To(Equal("some-value"))
 
 				container, err = docker.Container.Run.
