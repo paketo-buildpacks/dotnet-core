@@ -32,16 +32,8 @@ api = "0.8"
     version = "0.0.7"
 
   [[order.group]]
-    id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.10.9"
-
-  [[order.group]]
-    id = "paketo-buildpacks/dotnet-core-aspnet"
-    optional = true
-    version = "0.9.10"
-
-  [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
+    optional = true
     version = "0.10.1"
 
   [[order.group]]
@@ -56,67 +48,13 @@ api = "0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
+    optional = true
     version = "0.9.7"
 
   [[order.group]]
-    id = "paketo-buildpacks/dotnet-execute"
-    version = "0.12.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/procfile"
+    id = "paketo-buildpacks/dotnet-core-aspnet-runtime"
     optional = true
-    version = "5.4.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/environment-variables"
-    optional = true
-    version = "4.3.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/image-labels"
-    optional = true
-    version = "4.3.0"
-
-[[order]]
-
-  [[order.group]]
-    id = "paketo-buildpacks/ca-certificates"
-    optional = true
-    version = "3.4.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/watchexec"
-    optional = true
-    version = "2.7.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/vsdbg"
-    optional = true
-    version = "0.0.7"
-
-  [[order.group]]
-    id = "paketo-buildpacks/dotnet-core-runtime"
-    version = "0.10.9"
-
-  [[order.group]]
-    id = "paketo-buildpacks/dotnet-core-aspnet"
-    optional = true
-    version = "0.9.10"
-
-  [[order.group]]
-    id = "paketo-buildpacks/dotnet-core-sdk"
-    optional = true
-    version = "0.10.1"
-
-  [[order.group]]
-    id = "paketo-buildpacks/icu"
-    optional = true
-    version = "0.5.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/node-engine"
-    optional = true
-    version = "0.18.0"
+    version = "0.0.3"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
@@ -137,48 +75,3 @@ api = "0.8"
     optional = true
     version = "4.3.0"
 
-[[order]]
-
-  [[order.group]]
-    id = "paketo-buildpacks/ca-certificates"
-    optional = true
-    version = "3.4.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/watchexec"
-    optional = true
-    version = "2.7.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/vsdbg"
-    optional = true
-    version = "0.0.7"
-
-  [[order.group]]
-    id = "paketo-buildpacks/icu"
-    optional = true
-    version = "0.5.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/node-engine"
-    optional = true
-    version = "0.18.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/dotnet-execute"
-    version = "0.12.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/procfile"
-    optional = true
-    version = "5.4.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/environment-variables"
-    optional = true
-    version = "4.3.0"
-
-  [[order.group]]
-    id = "paketo-buildpacks/image-labels"
-    optional = true
-    version = "4.3.0"
