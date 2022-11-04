@@ -46,9 +46,6 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			name, err = occam.RandomName()
 			Expect(err).NotTo(HaveOccurred())
 
-			source, err = occam.Source(filepath.Join("testdata", "source-app"))
-			Expect(err).NotTo(HaveOccurred())
-
 			sbomDir, err = os.MkdirTemp("", "sbom")
 			Expect(err).NotTo(HaveOccurred())
 			Expect(os.Chmod(sbomDir, os.ModePerm)).To(Succeed())
@@ -66,6 +63,10 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 		it("creates a working OCI image", func() {
 			var err error
 			var logs fmt.Stringer
+
+			source, err = occam.Source(filepath.Join("testdata", "source-app"))
+			Expect(err).NotTo(HaveOccurred())
+
 			image, logs, err = pack.WithNoColor().Build.
 				WithBuildpacks(dotnetCoreBuildpack).
 				WithSBOMOutputDir(sbomDir).
@@ -121,9 +122,6 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			it.Before(func() {
 				var err error
 
-				// Remove source directory created in the it.Before
-				Expect(os.RemoveAll(source)).To(Succeed())
-
 				source, err = occam.Source(filepath.Join("testdata", "ca-cert-apps"))
 				Expect(err).NotTo(HaveOccurred())
 
@@ -150,6 +148,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			it("builds a working OCI image and uses a client-side CA cert for requests", func() {
 				var err error
 				var logs fmt.Stringer
+
 				image, logs, err = pack.WithNoColor().Build.
 					WithBuildpacks(dotnetCoreBuildpack).
 					WithPullPolicy("never").
@@ -202,6 +201,10 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 		context("when using optional utility buildpacks", func() {
 			var procfileContainer occam.Container
 			it.Before(func() {
+				var err error
+				source, err = occam.Source(filepath.Join("testdata", "source-app"))
+				Expect(err).NotTo(HaveOccurred())
+
 				Expect(os.WriteFile(filepath.Join(source, "Procfile"), []byte("procfile: echo Procfile command"), 0644)).To(Succeed())
 			})
 
@@ -310,6 +313,12 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 
 		context("when remote debugging is enabled", func() {
 			var vsdbgContainer occam.Container
+			it.Before(func() {
+				var err error
+				source, err = occam.Source(filepath.Join("testdata", "source-app"))
+				Expect(err).NotTo(HaveOccurred())
+
+			})
 			it.After(func() {
 				Expect(docker.Container.Remove.Execute(vsdbgContainer.ID)).To(Succeed())
 			})
@@ -356,6 +365,83 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core Runtime")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Execute")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for Visual Studio Debugger")))
+
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Environment Variables")))
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Image Labels")))
+			})
+		})
+		context("when source app uses .NET 7", func() {
+			it.Before(func() {
+				var err error
+				source, err = occam.Source(filepath.Join("testdata", "source-app-7"))
+				Expect(err).NotTo(HaveOccurred())
+			})
+
+			it("builds a working OCI image", func() {
+				var (
+					err  error
+					logs fmt.Stringer
+				)
+				image, logs, err = pack.WithNoColor().Build.
+					WithBuildpacks(dotnetCoreBuildpack).
+					WithPullPolicy("never").
+					Execute(name, source)
+				Expect(err).NotTo(HaveOccurred(), logs.String())
+
+				container, err = docker.Container.Run.
+					WithEnv(map[string]string{"PORT": "8080"}).
+					WithPublish("8080").
+					WithPublishAll().
+					Execute(image.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				Eventually(container).Should(Serve(ContainSubstring("<title>source-app-7</title>")).OnPort(8080))
+
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core SDK")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ICU")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Publish")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core Runtime")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Execute")))
+
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Environment Variables")))
+				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Image Labels")))
+			})
+		})
+		context("when source app includes dependencies from multiple frameworks", func() {
+			it.Before(func() {
+				var err error
+				source, err = occam.Source(filepath.Join("testdata", "multi-framework-solution"))
+				Expect(err).NotTo(HaveOccurred())
+			})
+
+			it("builds a working OCI image", func() {
+				var (
+					err  error
+					logs fmt.Stringer
+				)
+				image, logs, err = pack.WithNoColor().Build.
+					WithBuildpacks(dotnetCoreBuildpack).
+					WithPullPolicy("never").
+					WithEnv(map[string]string{
+						"BP_DOTNET_PROJECT_PATH": "source_7",
+					}).
+					Execute(name, source)
+				Expect(err).NotTo(HaveOccurred(), logs.String())
+
+				container, err = docker.Container.Run.
+					WithEnv(map[string]string{"PORT": "8080"}).
+					WithPublish("8080").
+					WithPublishAll().
+					Execute(image.ID)
+				Expect(err).NotTo(HaveOccurred())
+
+				Eventually(container).Should(Serve(ContainSubstring(`<h1 class="display-4">Welcome</h1>`)).OnPort(8080))
+
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core SDK")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ICU")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Publish")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ASP.NET Core Runtime")))
+				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Execute")))
 
 				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Environment Variables")))
 				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Image Labels")))
