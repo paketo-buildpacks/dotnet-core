@@ -44,7 +44,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
     optional = true
-    version = "0.18.0"
+    version = "0.19.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
@@ -74,4 +74,3 @@ api = "0.8"
     id = "paketo-buildpacks/image-labels"
     optional = true
     version = "4.3.0"
-
