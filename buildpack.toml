@@ -19,7 +19,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/ca-certificates"
     optional = true
-    version = "3.5.0"
+    version = "3.5.1"
 
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
@@ -63,12 +63,12 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/procfile"
     optional = true
-    version = "5.4.0"
+    version = "5.5.0"
 
   [[order.group]]
     id = "paketo-buildpacks/environment-variables"
     optional = true
-    version = "4.3.0"
+    version = "4.4.0"
 
   [[order.group]]
     id = "paketo-buildpacks/image-labels"
