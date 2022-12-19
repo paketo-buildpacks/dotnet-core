@@ -49,7 +49,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
     optional = true
-    version = "0.10.0"
+    version = "0.11.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet-runtime"
