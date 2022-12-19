@@ -1,30 +1,18 @@
 package integration_test
 
 import (
-	"bytes"
-	"encoding/json"
 	"os/exec"
 	"path/filepath"
 	"testing"
 	"time"
 
-	"github.com/paketo-buildpacks/packit/v2/pexec"
 	"github.com/sclevine/spec"
 	"github.com/sclevine/spec/report"
 
 	. "github.com/onsi/gomega"
 )
 
-var (
-	dotnetCoreBuildpack string
-	builder             struct {
-		Local struct {
-			Stack struct {
-				ID string `json:"id"`
-			} `json:"stack"`
-		} `json:"local_info"`
-	}
-)
+var dotnetCoreBuildpack string
 
 func TestIntegration(t *testing.T) {
 	Expect := NewWithT(t).Expect
@@ -36,16 +24,6 @@ func TestIntegration(t *testing.T) {
 	Expect(err).NotTo(HaveOccurred())
 
 	SetDefaultEventuallyTimeout(10 * time.Second)
-
-	buf := bytes.NewBuffer(nil)
-	cmd := pexec.NewExecutable("pack")
-	Expect(cmd.Execute(pexec.Execution{
-		Args:   []string{"builder", "inspect", "--output", "json"},
-		Stdout: buf,
-		Stderr: buf,
-	})).To(Succeed(), buf.String())
-
-	Expect(json.Unmarshal(buf.Bytes(), &builder)).To(Succeed(), buf.String())
 
 	suite := spec.New("Integration", spec.Parallel(), spec.Report(report.Terminal{}))
 	suite("FDD", testFDD)
