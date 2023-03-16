@@ -58,7 +58,7 @@ api = "0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.14.4"
+    version = "0.14.5"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"

@@ -3,7 +3,7 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-execute@0.14.4"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-execute@0.14.5"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-aspnet-runtime@0.3.5"
