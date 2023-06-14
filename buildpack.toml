@@ -29,7 +29,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/vsdbg"
     optional = true
-    version = "0.2.8"
+    version = "0.2.9"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
