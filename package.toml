@@ -3,37 +3,37 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-execute@0.14.21"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-execute@0.14.22"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-aspnet-runtime@0.3.26"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-aspnet-runtime@0.3.27"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-sdk@0.13.24"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-sdk@0.13.25"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/icu@0.6.18"
+  uri = "urn:cnb:registry:paketo-buildpacks/icu@0.6.19"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/node-engine@2.0.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/node-engine@3.0.1"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@0.12.20"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@0.12.21"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.6.6"
+  uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.6.7"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/environment-variables@4.5.5"
+  uri = "urn:cnb:registry:paketo-buildpacks/environment-variables@4.5.6"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/image-labels@4.5.4"
+  uri = "urn:cnb:registry:paketo-buildpacks/image-labels@4.5.5"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.6.5"
+  uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.6.6"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/watchexec@2.8.5"
+  uri = "urn:cnb:registry:paketo-buildpacks/watchexec@2.8.6"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/vsdbg@0.3.2"
+  uri = "urn:cnb:registry:paketo-buildpacks/vsdbg@0.3.3"
