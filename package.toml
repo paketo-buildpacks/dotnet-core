@@ -6,10 +6,10 @@
   uri = "urn:cnb:registry:paketo-buildpacks/dotnet-execute@0.14.31"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-aspnet-runtime@0.4.7"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-aspnet-runtime@0.4.8"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-sdk@0.14.8"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-sdk@0.14.9"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/icu@0.7.9"
