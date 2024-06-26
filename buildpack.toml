@@ -44,17 +44,17 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
     optional = true
-    version = "4.0.0"
+    version = "4.1.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
     optional = true
-    version = "0.12.33"
+    version = "0.12.34"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet-runtime"
     optional = true
-    version = "0.4.13"
+    version = "0.4.14"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
