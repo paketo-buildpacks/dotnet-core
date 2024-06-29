@@ -19,7 +19,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/ca-certificates"
     optional = true
-    version = "3.8.0"
+    version = "3.8.2"
 
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
@@ -29,12 +29,12 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/vsdbg"
     optional = true
-    version = "0.3.15"
+    version = "0.3.16"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
     optional = true
-    version = "0.14.14"
+    version = "0.14.15"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
@@ -49,16 +49,16 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
     optional = true
-    version = "0.12.34"
+    version = "0.12.35"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet-runtime"
     optional = true
-    version = "0.4.14"
+    version = "0.4.15"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "0.14.33"
+    version = "0.14.34"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
