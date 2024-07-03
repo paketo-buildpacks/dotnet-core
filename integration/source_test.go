@@ -370,10 +370,10 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Image Labels")))
 			})
 		})
-		context("when source app uses .NET 7", func() {
+		context("when source app uses .NET 8", func() {
 			it.Before(func() {
 				var err error
-				source, err = occam.Source(filepath.Join("testdata", "source-app-7"))
+				source, err = occam.Source(filepath.Join("testdata", "source-app-8"))
 				Expect(err).NotTo(HaveOccurred())
 			})
 
@@ -395,7 +395,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
-				Eventually(container).Should(Serve(ContainSubstring("<title>source_app_7</title>")).OnPort(8080))
+				Eventually(container).Should(Serve(ContainSubstring("<title>source_app_8</title>")).OnPort(8080))
 
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core SDK")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ICU")))
@@ -423,7 +423,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 					WithBuildpacks(dotnetCoreBuildpack).
 					WithPullPolicy("never").
 					WithEnv(map[string]string{
-						"BP_DOTNET_PROJECT_PATH": "source_7",
+						"BP_DOTNET_PROJECT_PATH": "source_8",
 					}).
 					Execute(name, source)
 				Expect(err).NotTo(HaveOccurred(), logs.String())
