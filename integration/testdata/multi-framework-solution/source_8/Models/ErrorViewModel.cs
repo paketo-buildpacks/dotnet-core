@@ -1,4 +1,4 @@
-namespace source_7_app.Models;
+namespace source_8_app.Models;
 
 public class ErrorViewModel
 {

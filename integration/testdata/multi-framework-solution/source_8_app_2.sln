@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33020.496
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "source_7_app", "source_7\source_7_app.csproj", "{10C0F795-849E-4D31-9919-C33A4E846069}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "source_8_app", "source_8\source_8_app.csproj", "{10C0F795-849E-4D31-9919-C33A4E846069}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Net6-Dependency", "Net6-Dependency\Net6-Dependency.csproj", "{55F6F57B-D3AA-4336-BA65-54BE53BBD86F}"
 EndProject
