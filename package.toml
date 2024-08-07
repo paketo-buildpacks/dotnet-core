@@ -9,16 +9,16 @@
   uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-aspnet-runtime@0.5.3"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-sdk@0.15.4"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-sdk@0.15.5"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/icu@0.7.18"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/node-engine@4.1.5"
+  uri = "urn:cnb:registry:paketo-buildpacks/node-engine@4.1.6"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@0.12.39"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@0.12.40"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.9.1"
