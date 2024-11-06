@@ -15,7 +15,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/icu@0.7.25"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/node-engine@4.1.15"
+  uri = "urn:cnb:registry:paketo-buildpacks/node-engine@5.0.0"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@0.12.44"
