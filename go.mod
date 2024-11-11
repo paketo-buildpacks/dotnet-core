@@ -1,6 +1,6 @@
 module github.com/paketo-buildpacks/dotnet-core
 
-go 1.23.2
+go 1.23.3
 
 require (
 	github.com/onsi/gomega v1.34.2
