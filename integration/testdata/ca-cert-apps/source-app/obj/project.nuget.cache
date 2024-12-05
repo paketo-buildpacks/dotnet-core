@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "9oxvDINq1O1nXWfwwQWs2DOAM1u59eMDG1W4SL8pCQNTfZzxxwCbRq8ZB+HXGdeXkjuSDN3tJQVaagQbTrKoMA==",
+  "success": true,
+  "projectFilePath": "/Users/feckhardt/workspace/broadcom/dotnet-core-buildpack/integration/testdata/ca-cert-apps/source-app/source_https_app.csproj",
+  "expectedPackageFiles": [
+    "/Users/feckhardt/.nuget/packages/microsoft.netcore.app.runtime.linux-x64/8.0.1/microsoft.netcore.app.runtime.linux-x64.8.0.1.nupkg.sha512",
+    "/Users/feckhardt/.nuget/packages/microsoft.aspnetcore.app.runtime.linux-x64/8.0.1/microsoft.aspnetcore.app.runtime.linux-x64.8.0.1.nupkg.sha512",
+    "/Users/feckhardt/.nuget/packages/microsoft.netcore.app.host.linux-x64/8.0.1/microsoft.netcore.app.host.linux-x64.8.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
