@@ -1,0 +1,6 @@
+/Users/feckhardt/workspace/broadcom/dotnet-core-buildpack/integration/testdata/ca-cert-apps/fdd-app/source_https_app
+/Users/feckhardt/workspace/broadcom/dotnet-core-buildpack/integration/testdata/ca-cert-apps/fdd-app/appsettings.json
+/Users/feckhardt/workspace/broadcom/dotnet-core-buildpack/integration/testdata/ca-cert-apps/fdd-app/source_https_app.dll
+/Users/feckhardt/workspace/broadcom/dotnet-core-buildpack/integration/testdata/ca-cert-apps/fdd-app/source_https_app.deps.json
+/Users/feckhardt/workspace/broadcom/dotnet-core-buildpack/integration/testdata/ca-cert-apps/fdd-app/source_https_app.runtimeconfig.json
+/Users/feckhardt/workspace/broadcom/dotnet-core-buildpack/integration/testdata/ca-cert-apps/fdd-app/source_https_app.pdb

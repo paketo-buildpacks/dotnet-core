@@ -370,10 +370,11 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 				Expect(logs).NotTo(ContainLines(ContainSubstring("Buildpack for Image Labels")))
 			})
 		})
-		context("when source app uses .NET 8", func() {
+
+		context("when source app uses .NET 9", func() {
 			it.Before(func() {
 				var err error
-				source, err = occam.Source(filepath.Join("testdata", "source-app-8"))
+				source, err = occam.Source(filepath.Join("testdata", "source-app-9"))
 				Expect(err).NotTo(HaveOccurred())
 			})
 
@@ -395,7 +396,7 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 					Execute(image.ID)
 				Expect(err).NotTo(HaveOccurred())
 
-				Eventually(container).Should(Serve(ContainSubstring("<title>Home Page - source_app_8</title>")).OnPort(8080))
+				Eventually(container).Should(Serve(ContainSubstring("<title>Home Page - source_app_9</title>")).OnPort(8080))
 
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for .NET Core SDK")))
 				Expect(logs).To(ContainLines(ContainSubstring("Buildpack for ICU")))
