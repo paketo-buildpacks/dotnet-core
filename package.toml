@@ -3,13 +3,13 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-execute@0.14.45"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-execute@1.0.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-aspnet-runtime@0.6.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-aspnet-runtime@1.0.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-sdk@0.16.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-sdk@1.0.0"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/icu@0.7.28"
@@ -18,7 +18,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/node-engine@5.0.4"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@0.12.47"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@1.0.0"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.10.1"
