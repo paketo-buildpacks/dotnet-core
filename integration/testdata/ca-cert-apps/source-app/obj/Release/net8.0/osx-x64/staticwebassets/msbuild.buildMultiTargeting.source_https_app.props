@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/source_https_app.props" />
+</Project>
