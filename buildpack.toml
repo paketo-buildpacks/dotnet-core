@@ -29,22 +29,22 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/vsdbg"
     optional = true
-    version = "0.3.34"
+    version = "0.3.35"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
     optional = true
-    version = "1.0.2"
+    version = "1.0.3"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.7.30"
+    version = "0.7.31"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
     optional = true
-    version = "5.1.1"
+    version = "5.1.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
@@ -54,11 +54,11 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet-runtime"
     optional = true
-    version = "1.0.2"
+    version = "1.0.3"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "1.0.2"
+    version = "1.0.3"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
