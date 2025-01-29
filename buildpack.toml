@@ -34,17 +34,17 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
     optional = true
-    version = "1.0.6"
+    version = "1.0.7"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.7.34"
+    version = "0.7.35"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
     optional = true
-    version = "5.2.1"
+    version = "5.2.2"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
@@ -54,7 +54,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet-runtime"
     optional = true
-    version = "1.0.7"
+    version = "1.0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
