@@ -30,7 +30,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/image-labels@4.9.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.10.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.10.1"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/watchexec@3.5.0"
