@@ -3,22 +3,22 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-execute@1.0.12"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-execute@1.0.13"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-aspnet-runtime@1.0.18"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-aspnet-runtime@1.0.19"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-sdk@1.0.17"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-core-sdk@1.0.18"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/icu@0.7.43"
+  uri = "urn:cnb:registry:paketo-buildpacks/icu@0.7.44"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/node-engine@5.5.1"
+  uri = "urn:cnb:registry:paketo-buildpacks/node-engine@5.5.2"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@1.0.9"
+  uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@1.0.10"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.11.0"
@@ -36,4 +36,4 @@
   uri = "urn:cnb:registry:paketo-buildpacks/watchexec@3.5.0"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/vsdbg@0.3.47"
+  uri = "urn:cnb:registry:paketo-buildpacks/vsdbg@0.3.48"
