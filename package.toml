@@ -15,7 +15,7 @@
   uri = "urn:cnb:registry:paketo-buildpacks/icu@0.7.46"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/node-engine@5.7.0"
+  uri = "urn:cnb:registry:paketo-buildpacks/node-engine@6.0.0"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@1.0.11"
@@ -36,4 +36,4 @@
   uri = "urn:cnb:registry:paketo-buildpacks/watchexec@3.5.2"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/vsdbg@0.3.50"
+  uri = "urn:cnb:registry:paketo-buildpacks/vsdbg@0.3.51"
