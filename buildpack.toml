@@ -24,12 +24,12 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/watchexec"
     optional = true
-    version = "3.5.2"
+    version = "3.5.3"
 
   [[order.group]]
     id = "paketo-buildpacks/vsdbg"
     optional = true
-    version = "0.3.51"
+    version = "0.3.52"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
@@ -44,7 +44,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
     optional = true
-    version = "6.0.0"
+    version = "6.1.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
@@ -63,14 +63,14 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/procfile"
     optional = true
-    version = "5.11.1"
+    version = "5.11.2"
 
   [[order.group]]
     id = "paketo-buildpacks/environment-variables"
     optional = true
-    version = "4.9.1"
+    version = "4.9.2"
 
   [[order.group]]
     id = "paketo-buildpacks/image-labels"
     optional = true
-    version = "4.10.0"
+    version = "4.10.1"
