@@ -29,7 +29,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/vsdbg"
     optional = true
-    version = "0.3.52"
+    version = "0.3.53"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
@@ -44,7 +44,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
     optional = true
-    version = "6.1.0"
+    version = "6.2.0"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-publish"
