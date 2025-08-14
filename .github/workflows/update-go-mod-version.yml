@@ -22,7 +22,7 @@ jobs:
         id: setup-go
         uses: actions/setup-go@v5
         with:
-          go-version: 'stable'
+          go-version-file: go.mod
       - name: Get current go toolchain version
         id: current-go-version
         uses: paketo-buildpacks/github-config/actions/update-go-mod-version@main
@@ -75,7 +75,7 @@ jobs:
 
   failure:
     name: Alert on Failure
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [update-go]
     if: ${{ always() && needs.update-go.result == 'failure' }}
     steps:
