@@ -21,19 +21,19 @@
   uri = "urn:cnb:registry:paketo-buildpacks/dotnet-publish@1.0.13"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.11.2"
+  uri = "urn:cnb:registry:paketo-buildpacks/procfile@5.11.3"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/environment-variables@4.9.2"
+  uri = "urn:cnb:registry:paketo-buildpacks/environment-variables@4.9.3"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/image-labels@4.10.1"
+  uri = "urn:cnb:registry:paketo-buildpacks/image-labels@4.10.2"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.10.3"
+  uri = "urn:cnb:registry:paketo-buildpacks/ca-certificates@3.10.4"
 
 [[dependencies]]
-  uri = "urn:cnb:registry:paketo-buildpacks/watchexec@3.5.3"
+  uri = "urn:cnb:registry:paketo-buildpacks/watchexec@3.5.4"
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/vsdbg@0.3.55"
