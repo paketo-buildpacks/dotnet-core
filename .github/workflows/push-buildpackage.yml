@@ -10,11 +10,11 @@ env:
 jobs:
   push:
     name: Push
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Parse Event
       id: event
@@ -103,7 +103,7 @@ jobs:
 
   failure:
     name: Alert on Failure
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     needs: [push]
     if: ${{ always() && needs.push.result == 'failure' }}
     steps:
