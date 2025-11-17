@@ -37,3 +37,11 @@
 
 [[dependencies]]
   uri = "urn:cnb:registry:paketo-buildpacks/vsdbg@0.6.0"
+
+[[targets]]
+  arch = "amd64"
+  os = "linux"
+
+[[targets]]
+  arch = "arm64"
+  os = "linux"
