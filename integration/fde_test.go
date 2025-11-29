@@ -176,7 +176,10 @@ func testFDE(t *testing.T, context spec.G, it spec.S) {
 					response, err = client.Do(request)
 					return err
 				}).Should(BeNil())
-				defer response.Body.Close()
+				defer func() {
+					err = response.Body.Close()
+					Expect(err).NotTo(HaveOccurred())
+				}()
 
 				Expect(response.StatusCode).To(Equal(http.StatusOK))
 
