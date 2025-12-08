@@ -34,7 +34,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
     optional = true
-    version = "1.5.0"
+    version = "1.6.0"
 
   [[order.group]]
     id = "paketo-buildpacks/icu"

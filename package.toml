@@ -9,7 +9,7 @@
   uri = "docker://docker.io/paketobuildpacks/dotnet-core-aspnet-runtime:1.6.0"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/dotnet-core-sdk:1.5.0"
+  uri = "docker://docker.io/paketobuildpacks/dotnet-core-sdk:1.6.0"
 
 [[dependencies]]
   uri = "docker://docker.io/paketobuildpacks/icu:0.9.3"
