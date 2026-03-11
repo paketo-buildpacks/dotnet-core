@@ -3,22 +3,22 @@
   uri = "build/buildpack.tgz"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/dotnet-execute:1.2.14"
+  uri = "docker://docker.io/paketobuildpacks/dotnet-execute:1.2.15"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/dotnet-core-aspnet-runtime:1.6.13"
+  uri = "docker://docker.io/paketobuildpacks/dotnet-core-aspnet-runtime:1.6.14"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/dotnet-core-sdk:1.6.13"
+  uri = "docker://docker.io/paketobuildpacks/dotnet-core-sdk:1.6.14"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/icu:0.9.15"
+  uri = "docker://docker.io/paketobuildpacks/icu:0.9.16"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/node-engine:8.0.5"
+  uri = "docker://docker.io/paketobuildpacks/node-engine:8.0.6"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/dotnet-publish:1.2.13"
+  uri = "docker://docker.io/paketobuildpacks/dotnet-publish:1.2.14"
 
 [[dependencies]]
   uri = "docker://docker.io/paketobuildpacks/procfile:5.13.0"
@@ -36,7 +36,7 @@
   uri = "docker://docker.io/paketobuildpacks/watchexec:3.9.0"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/vsdbg:0.6.15"
+  uri = "docker://docker.io/paketobuildpacks/vsdbg:0.6.16"
 
 [[targets]]
   arch = "amd64"
