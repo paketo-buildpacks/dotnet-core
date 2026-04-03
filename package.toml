@@ -33,7 +33,7 @@
   uri = "docker://docker.io/paketobuildpacks/ca-certificates:3.12.1"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/watchexec:3.9.1"
+  uri = "docker://docker.io/paketobuildpacks/watchexec:3.9.2"
 
 [[dependencies]]
   uri = "docker://docker.io/paketobuildpacks/vsdbg:0.6.17"
