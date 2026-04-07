@@ -29,7 +29,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/vsdbg"
     optional = true
-    version = "0.6.17"
+    version = "0.6.18"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-sdk"
@@ -58,7 +58,7 @@ api = "0.8"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
-    version = "1.2.18"
+    version = "1.2.19"
 
   [[order.group]]
     id = "paketo-buildpacks/procfile"
