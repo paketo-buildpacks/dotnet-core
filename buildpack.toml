@@ -54,7 +54,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/dotnet-core-aspnet-runtime"
     optional = true
-    version = "1.6.19"
+    version = "1.6.20"
 
   [[order.group]]
     id = "paketo-buildpacks/dotnet-execute"
