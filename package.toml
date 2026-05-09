@@ -15,7 +15,7 @@
   uri = "docker://docker.io/paketobuildpacks/icu:0.9.23"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/node-engine:8.0.14"
+  uri = "docker://docker.io/paketobuildpacks/node-engine:8.1.0"
 
 [[dependencies]]
   uri = "docker://docker.io/paketobuildpacks/dotnet-publish:1.2.20"
