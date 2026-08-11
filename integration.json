@@ -1,6 +1,7 @@
 {
   "builders": [
     "index.docker.io/paketobuildpacks/builder-jammy-buildpackless-base",
-    "index.docker.io/paketobuildpacks/ubuntu-noble-builder-buildpackless"
+    "index.docker.io/paketobuildpacks/ubuntu-noble-builder-buildpackless",
+    "index.docker.io/paketobuildpacks/ubuntu-resolute-builder-buildpackless"
   ]
 }
