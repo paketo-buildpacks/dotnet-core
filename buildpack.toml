@@ -39,7 +39,7 @@ api = "0.8"
   [[order.group]]
     id = "paketo-buildpacks/icu"
     optional = true
-    version = "0.9.38"
+    version = "0.10.0"
 
   [[order.group]]
     id = "paketo-buildpacks/node-engine"
