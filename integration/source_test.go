@@ -113,9 +113,12 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.spdx.json")).To(BeARegularFile())
 			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.syft.json")).To(BeARegularFile())
 
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.syft.json")).To(BeARegularFile())
+			// SBOM is not supported at the moment from UBI extension
+			if ubiNodejsExtension == "" {
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.cdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.spdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.syft.json")).To(BeARegularFile())
+			}
 
 			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.cdx.json")).To(BeARegularFile())
 			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.spdx.json")).To(BeARegularFile())
