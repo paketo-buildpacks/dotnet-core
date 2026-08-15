@@ -18,11 +18,17 @@ func testReproducibleBuilds(t *testing.T, context spec.G, it spec.S) {
 
 		pack   occam.Pack
 		docker occam.Docker
+
+		pullPolicy = "never"
 	)
 
 	it.Before(func() {
 		pack = occam.NewPack()
 		docker = occam.NewDocker()
+
+		if ubiNodejsExtension != "" {
+			pullPolicy = "always"
+		}
 	})
 
 	context("when building a .Net core app that is an FDD", func() {
@@ -199,8 +205,9 @@ func testReproducibleBuilds(t *testing.T, context spec.G, it spec.S) {
 			var err error
 			var logs fmt.Stringer
 			image, logs, err = pack.WithNoColor().Build.
+				WithExtensions(ubiNodejsExtension).
 				WithBuildpacks(dotnetCoreBuildpack).
-				WithPullPolicy("never").
+				WithPullPolicy(pullPolicy).
 				Execute(name, source)
 			Expect(err).NotTo(HaveOccurred(), logs.String())
 
@@ -211,8 +218,9 @@ func testReproducibleBuilds(t *testing.T, context spec.G, it spec.S) {
 			Expect(docker.Volume.Remove.Execute(occam.CacheVolumeNames(name))).To(Succeed())
 
 			image, logs, err = pack.WithNoColor().Build.
+				WithExtensions(ubiNodejsExtension).
 				WithBuildpacks(dotnetCoreBuildpack).
-				WithPullPolicy("never").
+				WithPullPolicy(pullPolicy).
 				WithClearCache().
 				Execute(name, source)
 			Expect(err).NotTo(HaveOccurred(), logs.String())
