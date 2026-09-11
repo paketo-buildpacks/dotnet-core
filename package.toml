@@ -21,16 +21,16 @@
   uri = "docker://docker.io/paketobuildpacks/dotnet-publish:1.3.11"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/procfile:5.13.7"
+  uri = "docker://docker.io/paketobuildpacks/procfile:5.14.0"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/environment-variables:4.11.7"
+  uri = "docker://docker.io/paketobuildpacks/environment-variables:4.12.0"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/image-labels:4.12.7"
+  uri = "docker://docker.io/paketobuildpacks/image-labels:4.13.0"
 
 [[dependencies]]
-  uri = "docker://docker.io/paketobuildpacks/ca-certificates:3.12.7"
+  uri = "docker://docker.io/paketobuildpacks/ca-certificates:3.13.0"
 
 [[dependencies]]
   uri = "docker://docker.io/paketobuildpacks/watchexec:3.10.0"
