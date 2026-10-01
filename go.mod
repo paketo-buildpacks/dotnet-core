@@ -3,7 +3,7 @@ module github.com/paketo-buildpacks/dotnet-core
 go 1.27.1
 
 require (
-	github.com/onsi/gomega v1.43.1
+	github.com/onsi/gomega v1.44.0
 	github.com/paketo-buildpacks/occam v0.31.4
 	github.com/sclevine/spec v1.4.0
 )
