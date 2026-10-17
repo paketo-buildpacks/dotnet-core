@@ -24,6 +24,8 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 
 		pack   occam.Pack
 		docker occam.Docker
+
+		pullPolicy = "never"
 	)
 
 	it.Before(func() {
@@ -49,6 +51,10 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			sbomDir, err = os.MkdirTemp("", "sbom")
 			Expect(err).NotTo(HaveOccurred())
 			Expect(os.Chmod(sbomDir, os.ModePerm)).To(Succeed())
+
+			if ubiNodejsExtension != "" {
+				pullPolicy = "always"
+			}
 		})
 
 		it.After(func() {
@@ -68,9 +74,10 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			Expect(err).NotTo(HaveOccurred())
 
 			image, logs, err = pack.WithNoColor().Build.
+				WithExtensions(ubiNodejsExtension).
 				WithBuildpacks(dotnetCoreBuildpack).
 				WithSBOMOutputDir(sbomDir).
-				WithPullPolicy("never").
+				WithPullPolicy(pullPolicy).
 				Execute(name, source)
 			Expect(err).NotTo(HaveOccurred(), logs.String())
 
@@ -106,9 +113,12 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.spdx.json")).To(BeARegularFile())
 			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_icu", "icu", "sbom.syft.json")).To(BeARegularFile())
 
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.cdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.spdx.json")).To(BeARegularFile())
-			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.syft.json")).To(BeARegularFile())
+			// SBOM is not supported at the moment from UBI extension
+			if ubiNodejsExtension == "" {
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.cdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.spdx.json")).To(BeARegularFile())
+				Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_node-engine", "node", "sbom.syft.json")).To(BeARegularFile())
+			}
 
 			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.cdx.json")).To(BeARegularFile())
 			Expect(filepath.Join(sbomDir, "sbom", "launch", "paketo-buildpacks_dotnet-execute", "sbom.spdx.json")).To(BeARegularFile())
@@ -150,8 +160,9 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 				var logs fmt.Stringer
 
 				image, logs, err = pack.WithNoColor().Build.
+					WithExtensions(ubiNodejsExtension).
 					WithBuildpacks(dotnetCoreBuildpack).
-					WithPullPolicy("never").
+					WithPullPolicy(pullPolicy).
 					Execute(name, filepath.Join(source, "source-app"))
 				Expect(err).NotTo(HaveOccurred(), logs.String())
 
@@ -219,8 +230,9 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 				var err error
 				var logs fmt.Stringer
 				image, logs, err = pack.WithNoColor().Build.
+					WithExtensions(ubiNodejsExtension).
 					WithBuildpacks(dotnetCoreBuildpack).
-					WithPullPolicy("never").
+					WithPullPolicy(pullPolicy).
 					WithEnv(map[string]string{
 						"BPE_SOME_VARIABLE":      "some-value",
 						"BP_IMAGE_LABELS":        "some-label=some-value",
@@ -332,9 +344,10 @@ func testSource(t *testing.T, context spec.G, it spec.S) {
 					logs fmt.Stringer
 				)
 				image, logs, err = pack.WithNoColor().Build.
+					WithExtensions(ubiNodejsExtension).
 					WithBuildpacks(dotnetCoreBuildpack).
 					WithSBOMOutputDir(sbomDir).
-					WithPullPolicy("never").
+					WithPullPolicy(pullPolicy).
 					WithEnv(map[string]string{
 						"BP_DEBUG_ENABLED": "true",
 					}).
