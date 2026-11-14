@@ -42,7 +42,7 @@ optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/node-engine'
-version = '8.12.1'
+version = '8.12.2'
 optional = true
 
 [[order.group]]
