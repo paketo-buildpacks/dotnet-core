@@ -5,10 +5,10 @@ uri = 'build/buildpack.tgz'
 uri = 'docker://docker.io/paketobuildpacks/dotnet-execute:1.2.50'
 
 [[dependencies]]
-uri = 'docker://docker.io/paketobuildpacks/dotnet-core-aspnet-runtime:1.6.51'
+uri = 'docker://docker.io/paketobuildpacks/dotnet-core-aspnet-runtime:1.6.52'
 
 [[dependencies]]
-uri = 'docker://docker.io/paketobuildpacks/dotnet-core-sdk:1.6.52'
+uri = 'docker://docker.io/paketobuildpacks/dotnet-core-sdk:1.6.53'
 
 [[dependencies]]
 uri = 'docker://docker.io/paketobuildpacks/icu:0.11.2'

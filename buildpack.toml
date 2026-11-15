@@ -32,7 +32,7 @@ optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/dotnet-core-sdk'
-version = '1.6.52'
+version = '1.6.53'
 optional = true
 
 [[order.group]]
@@ -52,7 +52,7 @@ optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/dotnet-core-aspnet-runtime'
-version = '1.6.51'
+version = '1.6.52'
 optional = true
 
 [[order.group]]
