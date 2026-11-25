@@ -17,37 +17,37 @@ include-files = ['buildpack.toml']
 [[order]]
 [[order.group]]
 id = 'paketo-buildpacks/ca-certificates'
-version = '3.14.7'
+version = '3.14.8'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/watchexec'
-version = '3.11.8'
+version = '3.11.9'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/vsdbg'
-version = '0.6.52'
+version = '0.6.53'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/dotnet-core-sdk'
-version = '2.0.0'
+version = '2.0.1'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/icu'
-version = '0.11.3'
+version = '0.11.4'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/node-engine'
-version = '8.12.3'
+version = '8.12.4'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/dotnet-publish'
-version = '1.3.20'
+version = '1.3.21'
 optional = true
 
 [[order.group]]
@@ -57,19 +57,19 @@ optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/dotnet-execute'
-version = '1.2.51'
+version = '1.2.52'
 
 [[order.group]]
 id = 'paketo-buildpacks/procfile'
-version = '5.15.9'
+version = '5.15.10'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/environment-variables'
-version = '4.12.4'
+version = '4.12.5'
 optional = true
 
 [[order.group]]
 id = 'paketo-buildpacks/image-labels'
-version = '4.14.8'
+version = '4.14.9'
 optional = true
